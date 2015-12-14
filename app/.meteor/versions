@@ -62,7 +62,7 @@ less-imports@0.0.0
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
-mdg:validated-method@0.2.0
+mdg:validated-method@0.2.3
 mdg:validation-error@0.1.0
 meteor@1.1.10
 meteor-base@1.0.1
@@ -78,8 +78,11 @@ npm-bcrypt@0.7.8_2
 npm-container@1.2.0
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
+octopus-gps@0.0.1
+octopus-gps-server@0.0.1
 octopus-lib@0.0.0
 octopus-main@0.0.1
+octopus-tracks@0.0.1
 ordered-dict@1.0.4
 percolate:momentum@0.7.2
 percolate:velocityjs@1.1.0

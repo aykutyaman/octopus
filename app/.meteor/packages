@@ -23,3 +23,6 @@ factory
 app-prod-security
 octopus-lib
 npm-container
+octopus-gps-server
+octopus-gps
+octopus-tracks

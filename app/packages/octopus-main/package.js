@@ -6,7 +6,12 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use("octopus-lib");
+  api.use('octopus-lib');
+
+  api.use([
+    'octopus-tracks',
+    'octopus-gps'
+  ]);
 
   api.addFiles([
     "bootstrap.js"
