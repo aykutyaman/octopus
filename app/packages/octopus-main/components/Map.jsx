@@ -1,4 +1,4 @@
-/* global Meteor GoogleMaps */
+/* global Meteor, GoogleMaps, google, ReactMeteorData, React */
 MapContainer = React.createClass({
   mixins: [ReactMeteorData],
   componentDidMount() {
@@ -12,14 +12,14 @@ MapContainer = React.createClass({
   },
   _mapOptions() {
     return {
-      center: new google.maps.LatLng(39.934486,32.853241),
+      center: new google.maps.LatLng(39.934486, 32.853241),
       zoom: 7
     };
   },
   render() {
-    if (this.data.loaded)
-      return <Map name="mymap" options={this.data.mapOptions} />
-    
+    if (this.data.loaded) {
+      return <Map name="mymap" options={this.data.mapOptions} />;
+    }
     return <div>Harita yükleniyor...</div>;
   }
 });
@@ -35,6 +35,14 @@ Map = React.createClass({
       element: document.getElementById('map'),
       options: this.props.options
     });
+
+    GoogleMaps.ready(this.props.name, function(map) {
+      new google.maps.Marker({
+	position: new google.maps.LatLng(39.934486, 32.853241),
+	map: map.instance
+      });
+    });
+
   },
   render() {
     return <div id="map" className="googleMap"></div>;
