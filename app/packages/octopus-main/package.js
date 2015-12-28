@@ -10,6 +10,7 @@ Package.onUse(function(api) {
 
   api.use([
     //'bevanhunt:leaflet@1.3.1',
+    //'dburles:google-maps@1.1.5',
     'octopus-tracks',
     'octopus-gps'
   ]);
@@ -20,6 +21,7 @@ Package.onUse(function(api) {
     'components/App.jsx',
     'components/Home.jsx',
     'components/Map.jsx',
+    'map.less',
     'routes.jsx'
   ], 'client');
 
