@@ -26,6 +26,7 @@ Package.onUse(function(api) {
   api.imply([
     'tracker',
     'jquery',
+    'react',
     //'blaze-html-templates',
     //'blaze-helpers',
     'reactive-dict',
@@ -38,6 +39,7 @@ Package.onUse(function(api) {
   // Routing
   api.imply([
     'kadira:flow-router@2.7.0',
+    'kadira:react-layout@1.5.0',
     //'kadira:blaze-layout@2.2.0',
     'arillo:flow-router-helpers@0.4.5',
     'zimme:active-route@2.3.0',
@@ -82,4 +84,5 @@ Package.onUse(function(api) {
     'mdg:validated-method@0.2.0',
     'aldeed:simple-schema@1.4.0',
   ]);
+
 });
