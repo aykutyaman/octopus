@@ -5,15 +5,20 @@ Meteor.startup(() => {
 
   Meteor.autorun(() => {
     if (GoogleMaps.loaded()) {
-      console.log(document.getElementById('map'));
-
       GoogleMaps.create({
-	name: 'map-container',
+	name: 'myMap',
 	element: document.getElementById('map'),
 	options: {
 	  center: new google.maps.LatLng(-37.8136, 144.9631),
 	  zoom: 8
 	}
+      });
+
+      GoogleMaps.ready('myMap', function(map) {
+	var marker = new google.maps.Marker({
+	  position: new google.maps.LatLng(-37.8136, 144.9631),
+	  map: map.instance
+	});
       });
     }
   });
