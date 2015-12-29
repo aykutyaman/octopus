@@ -67,7 +67,8 @@ MapMarker = React.createClass({
 
     GoogleMaps.ready(this.props.name, (map) => {
       var marker = new google.maps.Marker({
-        map: map.instance
+        map: map.instance,
+        icon: "https://s3-eu-west-1.amazonaws.com/kuresel-upload/1451431214_sedan-64.png"
       });
       instance.setState({
         map: map,
