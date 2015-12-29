@@ -18,14 +18,13 @@ MapContainer = React.createClass({
   },
   render() {
     if (this.data.loaded) {
-      return <Map name="mymap" options={this.data.mapOptions} />;
+      return <Map name="mymap" options={this.data.mapOptions} />
     }
     return <div>Harita yükleniyor...</div>;
   }
 });
 
 Map = React.createClass({
-  mixins: [ReactMeteorData],
   propTypes: {
     name: React.PropTypes.string.isRequired,
     options: React.PropTypes.object.isRequired
@@ -37,52 +36,68 @@ Map = React.createClass({
       options: this.props.options
     });
   },
-  getMeteorData() {
-    const handle = Meteor.subscribe('endPosition');
-    const data = {};
-    if(handle.ready()) {
-      data.endPosition = Tracks.findOne();
-    }
-    
-    return data;
+  render() {
+    return (
+      <div>
+      <div id="map" className="googleMap"></div>
+
+      <MeteorData
+      subscribe = { () => {
+	return Meteor.subscribe('Track.foo') }}
+      fetch = { () => {
+	return {data: Tracks.findOne()}}}
+      render = { ({loading, data}) => {
+	return <MapMarker name="mymap"  data={data} loading={loading} />
+      }}
+      />
+      </div>
+    )
+  }
+});
+
+MapMarker = React.createClass({
+  getInitialState() {
+    return {
+      marker: ""
+    };
+  },
+  componentDidMount() {
+    console.log('new marker');
+    const instance = this;
+
+    GoogleMaps.ready(this.props.name, (map) => {
+      var marker = new google.maps.Marker({
+        map: map.instance
+      });
+      instance.setState({
+        map: map,
+        marker: marker
+      })
+    });
   },
   getLatLng() {
-    const locationArr = this.data.endPosition ? this.data.endPosition.location.coordinates : [];
+    const locationArr = this.props.data ? this.props.data.location.coordinates : [];
     return locationArr.length ? _.object(['lat', 'lng'], locationArr) : "";
   },
   setMarkerPosition() {
-
     const latLng = this.getLatLng();
+    const map = this.state.map;
+    const marker = this.state.marker;
 
-    GoogleMaps.ready(this.props.name, function(map) {
-      var marker;
-
-      // Create and move the marker when latLng changes.
-
-      if (!latLng) {
-        return;
-      };
-
-      // If the marker doesn't yet exist, create it.
-      if (! marker) {
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(latLng.lat, latLng.lng),
-          map: map.instance
-        });
-      }
-      // The marker already exists, so we'll just change its position.
-      else {
-        marker.setPosition(latLng);
-      }
-
+    if (map && marker) {
+      marker.setPosition(latLng);
+      console.log('update marker');
+      
       // Center and zoom the map view onto the current position.
       map.instance.setCenter(marker.getPosition());
       map.instance.setZoom(15);
-    });
-    
+    };
   },
   render() {
-    this.setMarkerPosition()
-    return <div id="map" className="googleMap"></div>;
+    if (!this.props.loading) {
+      // we can render marker
+      this.setMarkerPosition();
+    }
+    return <div></div>;
   }
 });
