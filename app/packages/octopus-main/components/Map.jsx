@@ -37,28 +37,53 @@ Map = React.createClass({
     });
   },
   render() {
-    console.log('render MAP');
     return (
       <div>
-	<div id="map" className="googleMap"></div>
+      <div id="map" className="googleMap"></div>
 
-	<MeteorData
-		subscribe = { () => {
-			     return Meteor.subscribe('Track.foo') }}
-		fetch = { () => {
-			 return {data: Tracks.findOne()}}}
-		render = { ({loading, data}) => {
-			  return <MapMarker name="mymap"  data={data} loading={loading} />
-			  }}
-				 />
+      <MeteorData
+	      subscribe = { () => {
+			   return Meteor.subscribe('Track.foo') }}
+	      fetch = { () => {
+		       return {data: Tracks.findOne()}}}
+	      render = { ({loading, data}) => {
+			return <MapMarker name="mymap"  data={data} loading={loading} />
+			}}
+			       />
       </div>
     )
   }
 });
 
 MapMarker = React.createClass({
+  getInitialState() {
+    return {
+      marker: ""
+    };
+  },
   componentDidMount() {
-    console.log('mount');
+    console.log('new marker');
+
+    const markerImage = new google.maps.MarkerImage(
+      "http://www.justdriveapp.net/images/marker.png",
+      null, /* size is determined at runtime */
+      null, /* origin is 0,0 */
+      null, /* anchor is bottom center of the scaled image */
+      new google.maps.Size(62, 88)
+    );
+
+    // TODO: haritayi almak icin GoogleMaps paketinin bir fonksiyonu kullaniliyor.
+    // Bunun yerine Map komponenti buraya haritayi parametre olarak gondermeli.
+    GoogleMaps.ready(this.props.name, (map) => {
+      const marker = new google.maps.Marker({
+        map: map.instance,
+        icon: markerImage
+      });
+      this.setState({
+        map: map,
+        marker: marker
+      });
+    });
   },
   getLatLng() {
     const locationArr = this.props.data ? this.props.data.location.coordinates : [];
@@ -66,28 +91,17 @@ MapMarker = React.createClass({
   },
   setMarkerPosition() {
     const latLng = this.getLatLng();
-    GoogleMaps.ready(this.props.name, (map) => {
-      var marker;
+    const map = this.state.map;
+    const marker = this.state.marker;
 
-      if (!latLng) {
-	return;
-      }
-
-      if (!marker) {
-	console.log('new marker');
-	marker = new google.maps.Marker({
-	  position: new google.maps.LatLng(latLng.lat, latLng.lng),
-	  map: map.instance
-	});
-      } else {
-	console.log('update marker');
-	marker.setPosition(latLng);
-      }
+    if (map && marker) {
+      marker.setPosition(latLng);
+      console.log('update marker');
 
       // Center and zoom the map view onto the current position.
-      //map.instance.setCenter(marker.getPosition());
-      //map.instance.setZoom(15);
-    });
+      map.instance.setCenter(marker.getPosition());
+      map.instance.setZoom(15);
+    };
   },
   render() {
     if (!this.props.loading) {
