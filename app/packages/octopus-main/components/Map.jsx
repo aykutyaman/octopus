@@ -42,14 +42,14 @@ Map = React.createClass({
       <div id="map" className="googleMap"></div>
 
       <MeteorData
-      subscribe = { () => {
-	return Meteor.subscribe('Track.foo') }}
-      fetch = { () => {
-	return {data: Tracks.findOne()}}}
-      render = { ({loading, data}) => {
-	return <MapMarker name="mymap"  data={data} loading={loading} />
-      }}
-      />
+	      subscribe = { () => {
+			   return Meteor.subscribe('Track.foo') }}
+	      fetch = { () => {
+		       return {data: Tracks.findOne()}}}
+	      render = { ({loading, data}) => {
+			return <MapMarker name="mymap"  data={data} loading={loading} />
+			}}
+			       />
       </div>
     )
   }
@@ -63,17 +63,26 @@ MapMarker = React.createClass({
   },
   componentDidMount() {
     console.log('new marker');
-    const instance = this;
 
+    const markerImage = new google.maps.MarkerImage(
+      "http://www.justdriveapp.net/images/marker.png",
+      null, /* size is determined at runtime */
+      null, /* origin is 0,0 */
+      null, /* anchor is bottom center of the scaled image */
+      new google.maps.Size(62, 88)
+    );
+
+    // TODO: haritayi almak icin GoogleMaps paketinin bir fonksiyonu kullaniliyor.
+    // Bunun yerine Map komponenti buraya haritayi parametre olarak gondermeli.
     GoogleMaps.ready(this.props.name, (map) => {
-      var marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         map: map.instance,
-        icon: "https://s3-eu-west-1.amazonaws.com/kuresel-upload/1451431214_sedan-64.png"
+        icon: markerImage
       });
-      instance.setState({
+      this.setState({
         map: map,
         marker: marker
-      })
+      });
     });
   },
   getLatLng() {
@@ -88,7 +97,7 @@ MapMarker = React.createClass({
     if (map && marker) {
       marker.setPosition(latLng);
       console.log('update marker');
-      
+
       // Center and zoom the map view onto the current position.
       map.instance.setCenter(marker.getPosition());
       map.instance.setZoom(15);
