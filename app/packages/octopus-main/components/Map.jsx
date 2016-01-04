@@ -62,8 +62,7 @@ MapMarker = React.createClass({
     };
   },
   componentDidMount() {
-    console.log('new marker');
-
+    const tooltip = new google.maps.InfoWindow();
     const markerImage = new google.maps.MarkerImage(
       "https://s3-eu-west-1.amazonaws.com/kuresel-upload/marker-octopus.png",
       null, /* size is determined at runtime */
@@ -82,6 +81,10 @@ MapMarker = React.createClass({
       this.setState({
         map: map,
         marker: marker
+      });
+
+      marker.addListener('click', function() {
+        tooltip.open(map.instance, marker);
       });
     });
   },
