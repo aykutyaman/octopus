@@ -14,11 +14,12 @@ Package.onUse(function(api) {
   api.addFiles([
     'components/Layout.jsx',
     'components/Home.jsx',
+    'components/Login.jsx',
     'admin.less',
     'routes.jsx'
   ], 'client');
 
   api.addFiles([
-
+    'startup.jsx'
   ], 'server');
 });

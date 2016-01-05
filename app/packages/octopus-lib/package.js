@@ -68,7 +68,8 @@ Package.onUse(function(api) {
     'useraccounts:unstyled@1.12.4',
     'useraccounts:flow-routing@1.12.4',
     // Required by the above. This version fixes https://github.com/softwarerero/meteor-accounts-t9n/issues/122
-    'softwarerero:accounts-t9n@1.1.6'
+    'softwarerero:accounts-t9n@1.1.6',
+    'alanning:roles@1.2.14'
   ]);
 
   // Security
