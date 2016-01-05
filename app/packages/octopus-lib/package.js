@@ -85,4 +85,8 @@ Package.onUse(function(api) {
     'aldeed:simple-schema@1.4.0',
   ]);
 
+  api.imply([
+    'izzilab:material-ui',
+  ]);
+
 });
