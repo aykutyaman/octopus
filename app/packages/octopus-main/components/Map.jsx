@@ -39,17 +39,17 @@ Map = React.createClass({
   render() {
     return (
       <div>
-      <div id="map" className="googleMap"></div>
+	<div id="map" className="googleMap"></div>
 
-      <MeteorData
-	      subscribe = { () => {
-			   return Meteor.subscribe('Track.foo') }}
-	      fetch = { () => {
-		       return {data: Tracks.findOne()}}}
-	      render = { ({loading, data}) => {
-			return <MapMarker name="mymap"  data={data} loading={loading} />
-			}}
-			       />
+	<MeteorData
+		subscribe = { () => {
+			     return Meteor.subscribe('Track.foo') }}
+		fetch = { () => {
+			 return {data: Tracks.findOne()}}}
+		render = { ({loading, data}) => {
+			  return <MapMarker name="mymap"  data={data} loading={loading} />
+			  }}
+				 />
       </div>
     )
   }
