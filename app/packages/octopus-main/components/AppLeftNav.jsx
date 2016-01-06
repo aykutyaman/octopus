@@ -10,6 +10,22 @@ const {
 const ContentInbox = MUI.Libs.SvgIcons.NotificationTimeToLeave;
 
 AppLeftNav = React.createClass({
+  getInitialState() {
+    return {
+      showModalState: false
+    }
+  },
+  showModal(modalType) {
+    this.setState({
+      showModalState: true
+    });
+  },
+  hideModal(e) {
+    this.setState({
+      showModalState: false
+    });
+  },
+
   render() {
     const leftNavStyles = {
       marginTop: 64
@@ -21,18 +37,23 @@ AppLeftNav = React.createClass({
     };
 
     return (
-      <LeftNav
-	      open={false}
-	      styles={leftNavStyles}
-      >
-	<div style={foo}></div>
-	<List>
-	  <ListItem
-		  primaryText="Araçlar"
-		  onClick={this.props.showModal}
-		  leftIcon={<ContentInbox />} />
-	</List>
-      </LeftNav>
+      <div>
+	<LeftNav
+		open={false}
+		styles={leftNavStyles}
+	>
+	  <div style={foo}></div>
+	  <List>
+	    <ListItem
+		    primaryText="Araçlar"
+		    onClick={this.showModal}
+		    leftIcon={<ContentInbox />} />
+	  </List>
+	</LeftNav>
+	<Modal
+		showModalState={this.state.showModalState}
+		hideModal={this.hideModal} />
+      </div>
     )
   }
 });
