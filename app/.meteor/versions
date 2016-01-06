@@ -1,5 +1,6 @@
 accounts-base@1.2.2
 accounts-password@1.1.4
+alanning:roles@1.2.14
 aldeed:collection2@2.5.0
 aldeed:simple-schema@1.4.0
 aldeed:template-extension@3.4.3
@@ -82,6 +83,7 @@ npm-bcrypt@0.7.8_2
 npm-container@1.2.0
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
+octopus-admin@0.0.1
 octopus-gps@0.0.1
 octopus-gps-server@0.0.1
 octopus-lib@0.0.0
