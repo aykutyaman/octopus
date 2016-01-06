@@ -1,8 +1,13 @@
 const {
   LeftNav,
-  MenuItem
+  Menu,
+  MenuItem,
+  List,
+  ListItem,
+  FontIcon
 } = MUI;
 
+const ContentInbox = MUI.Libs.SvgIcons.NotificationTimeToLeave;
 
 AppLeftNav = React.createClass({
   render() {
@@ -21,8 +26,12 @@ AppLeftNav = React.createClass({
 	      styles={leftNavStyles}
       >
 	<div style={foo}></div>
-	<MenuItem index={0}>Menu Item</MenuItem>
-	<MenuItem index={1}>Menu Item2</MenuItem>
+	<List>
+	  <ListItem
+		  primaryText="Araçlar"
+		  onClick={this.props.showModal}
+		  leftIcon={<ContentInbox />} />
+	</List>
       </LeftNav>
     )
   }

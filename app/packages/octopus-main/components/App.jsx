@@ -1,23 +1,46 @@
+const {
+  AppBar,
+  Styles,
+} = MUI;
+
+
 App = React.createClass({
-  render() {
-    return (
-      <div>
-	<MapContainer />
-      </div>
-    );
-  }
-});
-
-
-MeteorData = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    const sub = this.props.subscribe()
-      const data = this.props.fetch()
-      data.loading = !sub.ready()
-      return data;
+  getInitialState() {
+    return {
+      showModalState: false
+    }
+  },
+  showModal(modalType) {
+    this.setState({
+      showModalState: true
+    });
+  },
+  hideModal(e) {
+    this.setState({
+      showModalState: false
+    });
   },
   render() {
-    return this.props.render(this.data)
+    const styles = {
+      zIndex: 1101
+    };
+    const mainStyles = {
+      paddingLeft: 256
+    };
+
+    return (
+      <div>
+	<AppBar style={styles} title='Octopus' />
+	<div style={mainStyles}>
+	  <MapContainer />
+	</div>
+	<AppLeftNav
+		showModal={this.showModal}
+	/>
+	<Modal
+		showModalState={this.state.showModalState}
+		hideModal={this.hideModal} />
+      </div>
+    );
   }
 });
