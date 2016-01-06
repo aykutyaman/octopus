@@ -1,23 +1,25 @@
+const {
+  AppBar,
+  Styles,
+} = MUI;
+
+
 App = React.createClass({
   render() {
+    const styles = {
+      zIndex: 1101
+    };
+    const mainStyles = {
+      paddingLeft: 256
+    };
     return (
       <div>
-	<MapContainer />
+	<AppBar style={styles} title='Octopus' />
+	<div style={mainStyles}>
+	  <MapContainer />
+	</div>
+	<AppLeftNav />
       </div>
     );
-  }
-});
-
-
-MeteorData = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    const sub = this.props.subscribe()
-      const data = this.props.fetch()
-      data.loading = !sub.ready()
-      return data;
-  },
-  render() {
-    return this.props.render(this.data)
   }
 });

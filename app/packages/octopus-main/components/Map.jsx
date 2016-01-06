@@ -39,17 +39,17 @@ Map = React.createClass({
   render() {
     return (
       <div>
-      <div id="map" className="googleMap"></div>
+	<div id="map" className="googleMap"></div>
 
-      <MeteorData
-	      subscribe = { () => {
-			   return Meteor.subscribe('Track.foo') }}
-	      fetch = { () => {
-		       return {data: Tracks.findOne()}}}
-	      render = { ({loading, data}) => {
-			return <MapMarker name="mymap"  data={data} loading={loading} />
-			}}
-			       />
+	<MeteorData
+		subscribe = { () => {
+			     return Meteor.subscribe('Track.foo') }}
+		fetch = { () => {
+			 return {data: Tracks.findOne()}}}
+		render = { ({loading, data}) => {
+			  return <MapMarker name="mymap"  data={data} loading={loading} />
+			  }}
+				 />
       </div>
     )
   }
@@ -62,10 +62,9 @@ MapMarker = React.createClass({
     };
   },
   componentDidMount() {
-    console.log('new marker');
-
+    const tooltip = new google.maps.InfoWindow();
     const markerImage = new google.maps.MarkerImage(
-      "http://www.justdriveapp.net/images/marker.png",
+      "https://s3-eu-west-1.amazonaws.com/kuresel-upload/marker-octopus.png",
       null, /* size is determined at runtime */
       null, /* origin is 0,0 */
       null, /* anchor is bottom center of the scaled image */
@@ -82,6 +81,10 @@ MapMarker = React.createClass({
       this.setState({
         map: map,
         marker: marker
+      });
+
+      marker.addListener('click', function() {
+        tooltip.open(map.instance, marker);
       });
     });
   },

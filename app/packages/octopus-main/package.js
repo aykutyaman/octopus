@@ -16,10 +16,12 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
+    'components/MeteorData.jsx',
     'components/MainLayout.jsx',
     'components/EmbedLayout.jsx',
     'components/App.jsx',
     'components/AppLeftNav.jsx',
+    'components/Modal.jsx',
     'components/Home.jsx',
     'components/Map.jsx',
     'map.less',
