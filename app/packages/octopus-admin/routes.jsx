@@ -1,4 +1,4 @@
-/* global Roles, FlowRouter, ReactLayout, Layout */
+/* global Roles, FlowRouter, ReactLayout, AdminLayout */
 const isAdmin = (context, redirect) => {
   if (!Roles.userIsInRole(Meteor.user(), 'root')) {
     redirect('signin');
@@ -8,8 +8,10 @@ const isAdmin = (context, redirect) => {
 FlowRouter.route('/admin', {
   name: 'home',
   action() {
-    ReactLayout.render(Layout, {
-      content: <Home />
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <Home />;
+      }
     });
   },
   triggersEnter: [isAdmin]
@@ -18,8 +20,15 @@ FlowRouter.route('/admin', {
 FlowRouter.route('/signin', {
   name: 'signin',
   action() {
-    ReactLayout.render(Layout, {
-      content: <Login />
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <Login />;
+      }
     });
-  }
+  },
+  triggersEnter: [(context, redirect) => {
+    if (Meteor.userId()) {
+      redirect('home');
+    }
+  }]
 });

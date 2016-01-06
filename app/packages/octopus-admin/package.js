@@ -12,7 +12,8 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
-    'components/Layout.jsx',
+    'components/AdminLayout.jsx',
+    'components/AppLeftNav.jsx',
     'components/Home.jsx',
     'components/Login.jsx',
     'admin.less',

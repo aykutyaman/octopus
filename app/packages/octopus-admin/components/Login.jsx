@@ -1,10 +1,12 @@
 /* global FlowRouter, React, ReactDOM */
+
+const {TextField, Paper, RaisedButton, Snackbar} = MUI;
 Login = React.createClass({
   handleSubmit(event) {
     event.preventDefault();
 
-    const email = ReactDOM.findDOMNode(this.refs.email).value.trim();
-    const password = ReactDOM.findDOMNode(this.refs.password).value.trim();
+    const email = this.refs.email.getValue().trim();
+    const password = this.refs.password.getValue().trim();
 
     if (email.length === 0 || password.length === 0) {
       alert("Email ve şifre alanları boş olamaz.");
@@ -20,13 +22,26 @@ Login = React.createClass({
     });
   },
   render() {
-    return <div>
-    <h3>Octopus Admin Giriş</h3>
-    <form className="login">
-    <p><input type="text" ref="email" placeholder="Email" /></p>
-    <p><input type="password" ref="password" placeholder="Şifre" /></p>
-    <p><button onClick={this.handleSubmit}>Giriş</button></p>
-    </form>
-    </div>;
+    const paperStyle = {
+      padding: '30px'
+    };
+    return <Paper style={paperStyle} zDepth={3}>
+        <center>
+          <Paper zDepth={0} circle={true}>
+            <img src="https://cdn2.iconfinder.com/data/icons/free-basic-icon-set-2/300/2-128.png" />
+          </Paper>
+          <br />
+          <TextField
+            ref="email"
+            floatingLabelText="E-posta" />
+          <br />
+          <TextField
+            ref="password"
+            floatingLabelText="Şifre"
+            type="password" />
+          <br />
+          <RaisedButton onClick={this.handleSubmit} label="Giriş" secondary={true} />
+        </center>
+      </Paper>;
   }
 });

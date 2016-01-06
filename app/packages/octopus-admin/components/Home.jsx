@@ -1,5 +1,7 @@
 /* global React, FlowRouter, ReactMeteorData */
 
+const {Paper} = MUI;
+
 Home = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
@@ -11,22 +13,19 @@ Home = React.createClass({
     const currentUser = this.data.currentUser;
     return currentUser ? currentUser.profile.name : null;
   },
-  _handleLogout() {
-    Meteor.logout( (error) => {
-      if (!error) {
-        FlowRouter.go('signin');
-      }
-    });
-  },
   render() {
+    const containerStyle = {
+      padding: 50
+    };
     return <div>
+    <Paper style={containerStyle} zDepth={3}>
+    <center>
+    <h1>Hoşgeldiniz!</h1>
     { this.data.currentUser ?
-      <label>
-      {this.getCurrentUserName()}
-      <button onClick={this._handleLogout}>Çıkış</button>
-      </label> : ''
+      <h3>{this.getCurrentUserName()}</h3> : ''
     }
-    <h3> Octopus Admin </h3>
+    </center>
+    </Paper>
     </div>;
   }
 });
