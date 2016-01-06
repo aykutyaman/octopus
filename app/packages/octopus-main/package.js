@@ -19,6 +19,7 @@ Package.onUse(function(api) {
     'components/MainLayout.jsx',
     'components/EmbedLayout.jsx',
     'components/App.jsx',
+    'components/AppLeftNav.jsx',
     'components/Home.jsx',
     'components/Map.jsx',
     'map.less',

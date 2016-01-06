@@ -4,7 +4,9 @@ FlowRouter.route('/', {
   name: 'home',
   action() {
     ReactLayout.render(MainLayout, {
-      content: <Home />
+      content() {
+	return <Home />
+      }
     });
   }
 });
@@ -12,8 +14,10 @@ FlowRouter.route('/', {
 FlowRouter.route('/embed/:deviceId', {
   name: 'embed',
   action() {
-    ReactLayout.render(EmbedLayout, {
-      content: <App />
+    ReactLayout.render(MainLayout, {
+      content() {
+	return <App />
+      }
     });
   }
 });
