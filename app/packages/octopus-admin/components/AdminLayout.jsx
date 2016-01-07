@@ -5,6 +5,7 @@ injectTapEventPlugin();
 const {
   AppBar,
   Styles,
+  Paper,
   IconButton,
   FlatButton
 } = MUI;
@@ -35,8 +36,8 @@ AdminLayout = React.createClass({
     return Meteor.userId() ? <FlatButton label="Çıkış" onTouchTap={this._handleLogout} /> : null;
   },
   render() {
-    const mainStyles = {
-      padding: '10px'
+    const containerStyle = {
+      padding: 20
     };
     return <div>
     <AppLeftNav ref="nav" />
@@ -47,9 +48,9 @@ AdminLayout = React.createClass({
     iconElementRight={this.navElementRight()}
     />
 
-    <div style={mainStyles}>
+    <Paper style={containerStyle} zDepth={3}>
     {this.props.content()}
-    </div>
+    </Paper>
     </div>;
   }
 });

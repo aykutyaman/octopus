@@ -16,11 +16,18 @@ Package.onUse(function(api) {
     'components/AppLeftNav.jsx',
     'components/Home.jsx',
     'components/Login.jsx',
+    'components/CompaniesContainer.jsx',
     'admin.less',
     'routes.jsx'
   ], 'client');
 
   api.addFiles([
-    'startup.jsx'
+    'startup.jsx',
+    'publications.js'
   ], 'server');
+
+  api.addFiles([
+    'companies.js',
+    'methods.js'
+  ]);
 });

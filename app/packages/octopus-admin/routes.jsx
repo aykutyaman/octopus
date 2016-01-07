@@ -32,3 +32,15 @@ FlowRouter.route('/signin', {
     }
   }]
 });
+
+FlowRouter.route('/admin/companies', {
+  name: 'companies',
+  action() {
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <CompaniesContainer />;
+      }
+    });
+  },
+  triggersEnter: [isAdmin]
+});
