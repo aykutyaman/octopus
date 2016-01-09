@@ -1,4 +1,6 @@
-/* global FlowRouter, ReactLayout, MainLayout, EmbedLayout */
+import { FlowRouter } from 'kadira:flow-router';
+import { ReactLayout } from 'kadira:react-layout';
+
 
 FlowRouter.route('/', {
   name: 'home',

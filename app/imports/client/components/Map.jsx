@@ -1,4 +1,12 @@
 /* global Meteor, GoogleMaps, google, ReactMeteorData, React */
+
+import { GoogleMaps } from 'dburles:google-maps';
+import { Tracks } from '../../api/tracks/tracks.js';
+
+//TODO: ugly. https://github.com/meteor/meteor/issues/5870
+// make a pull request for dburles:google-maps package
+window.GoogleMaps = GoogleMaps;
+
 MapContainer = React.createClass({
   mixins: [ReactMeteorData],
   componentDidMount() {

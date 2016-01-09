@@ -6,9 +6,13 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use('octopus-lib');
+  //api.use('octopus-lib');
 
   api.use([
+    'ecmascript',
+    'es5-shim',
+    'underscore',
+    'less'
   ]);
 
   api.addFiles([

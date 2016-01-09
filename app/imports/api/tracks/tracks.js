@@ -1,6 +1,8 @@
 /* global Tracks: true */
 /* global SimpleSchema Factory faker */
 
+import { SimpleSchema } from 'aldeed:simple-schema';
+
 class TracksCollection extends Mongo.Collection {
   insert(doc, callback) {
     doc.createdAt = doc.createdAt || new Date();
@@ -8,7 +10,7 @@ class TracksCollection extends Mongo.Collection {
   }
 }
 
-Tracks = new TracksCollection('tracks');
+export const Tracks = new TracksCollection('tracks');
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Tracks.deny({

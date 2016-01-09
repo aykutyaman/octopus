@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
-/* global Meteor console net GPS Tracks */
+/* global Meteor console net GPS */
 
 const fiber = Npm.require('fibers');
 
+import { Tracks } from '../../imports/api/tracks/tracks.js';
+
 Meteor.startup(() => {
+
+  console.log('gps-server');
 
   const config = {
     debug: true,

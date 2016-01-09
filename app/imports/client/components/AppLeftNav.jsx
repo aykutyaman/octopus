@@ -39,7 +39,7 @@ AppLeftNav = React.createClass({
     return (
       <div>
 	<LeftNav
-		open={false}
+		open={true}
 		styles={leftNavStyles}
 	>
 	  <div style={foo}></div>

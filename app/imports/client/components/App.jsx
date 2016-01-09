@@ -7,7 +7,7 @@ const {
 App = React.createClass({
   render() {
     const styles = {
-      zIndex: 1101
+      zIndex: 1401
     };
     const mainStyles = {
       paddingLeft: 256

@@ -3,8 +3,8 @@
 GPS = {};
 
 
-class Server {
-  constructor(config) {
+// class Server {
+//   constructor(config) {
 
     // this._netServer = config.net.createServer((connection) => {
     //     console.log('hello connection');
@@ -23,7 +23,7 @@ class Server {
     // this._netServer.listen(8090, () => {
     //   console.log('server bound');
     // });
-  }
-}
+//   }
+// }
 
 GPS.server = Npm.require("gps-tracking").server;

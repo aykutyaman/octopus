@@ -11,7 +11,7 @@ Npm.depends({
 
 Package.onUse(function(api) {
 
-  api.use(['octopus-lib']);
+  //api.use(['octopus-lib']);
 
   api.addFiles([
     'gps-server.js'
