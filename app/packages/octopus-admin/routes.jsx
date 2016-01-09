@@ -44,3 +44,15 @@ FlowRouter.route('/admin/companies', {
   },
   triggersEnter: [isAdmin]
 });
+
+FlowRouter.route('/admin/companies/:companyId/vehicles', {
+  name: 'vehicles',
+  action() {
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <VehiclesContainer />;
+      }
+    });
+  },
+  triggersEnter: [isAdmin]
+});

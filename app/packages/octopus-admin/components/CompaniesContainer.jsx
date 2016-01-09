@@ -1,6 +1,7 @@
 /* global Companies, React, ReactDOM, FlowRouter, ReactMeteorData */
 
 const {Paper, List, ListItem, TextField, RaisedButton} = MUI;
+const CompanyIcon = MUI.Libs.SvgIcons.SocialLocationCity;
 
 CompaniesContainer = React.createClass({
   mixins: [ReactMeteorData],
@@ -15,14 +16,17 @@ CompaniesContainer = React.createClass({
     }
     return data;
   },
-  getCurrentUserName() {
-    const currentUser = this.data.currentUser;
-    return currentUser ? currentUser.profile.name : null;
+  _handleTouchTapRoute(companyId) {
+    FlowRouter.go('vehicles', {companyId: companyId});
   },
   getCompaniesList() {
     return <List>
     {this.data.companies.map( company => {
-      return <ListItem key={company._id} primaryText={company.name} />;
+      return <ListItem
+      key={company._id}
+      primaryText={company.name}
+      leftIcon={<CompanyIcon />}
+      onTouchTap={this._handleTouchTapRoute.bind(this, company._id)} />;
     })}
     </List>;
   },
@@ -33,12 +37,12 @@ CompaniesContainer = React.createClass({
     // Call the Method
     Companies.methods.newCompany.call({
       name: companyName
-    }, (err, res) => {
+    }, (err) => {
       if (err) {
         if (err.error === 'Companies.methods.newCompany.unauthorized') {
           alert('Yeni şirket eklenemedi.');
         } else {
-          // Unexpected error, handle it in the UI somehow
+          alert(err.error);
         }
       } else {
         this.refs.companyName.clearValue();
@@ -56,7 +60,7 @@ CompaniesContainer = React.createClass({
     <Paper style={paperStyle} zDepth={2}>
     <div className="newCompany">
     <h3>Yeni Şirket Ekle</h3>
-    <TextField ref="companyName" id="companyName" hintText="Şirket İsmi" />
+    <TextField ref="companyName" hintText="Şirket İsmi" />
     <RaisedButton label="Ekle" onClick={this._submitNewCompany} secondary={true} />
     </div>
     </Paper>

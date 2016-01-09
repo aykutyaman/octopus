@@ -26,7 +26,3 @@ const CompaniesSchema = new SimpleSchema({
 });
 
 Companies.attachSchema(CompaniesSchema);
-
-Companies.inListFields = {
-  name: 1
-};

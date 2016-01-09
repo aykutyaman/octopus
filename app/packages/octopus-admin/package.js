@@ -17,6 +17,7 @@ Package.onUse(function(api) {
     'components/Home.jsx',
     'components/Login.jsx',
     'components/CompaniesContainer.jsx',
+    'components/VehiclesContainer.jsx',
     'admin.less',
     'routes.jsx'
   ], 'client');
@@ -27,7 +28,9 @@ Package.onUse(function(api) {
   ], 'server');
 
   api.addFiles([
-    'companies.js',
-    'methods.js'
+    'companies/collections.js',
+    'companies/methods.js',
+    'vehicles/collections.js',
+    'vehicles/methods.js'
   ]);
 });
