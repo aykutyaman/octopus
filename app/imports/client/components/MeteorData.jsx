@@ -1,4 +1,6 @@
-MeteorData = React.createClass({
+import React from 'react';
+
+export const MeteorData = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const sub = this.props.subscribe()

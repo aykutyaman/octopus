@@ -1,9 +1,9 @@
-const {
-  Dialog,
-  FlatButton
-} = MUI;
+import React from 'react';
+import Dialog from 'material-ui/lib/dialog';
+import FlatButton from 'material-ui/lib/flat-button';
 
-Modal = React.createClass({
+
+export const Modal = React.createClass({
   handleClose() {
     this.props.hideModal();
   },

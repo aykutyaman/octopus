@@ -1,10 +1,10 @@
-const {
-  AppBar,
-  Styles,
-} = MUI;
+import React from 'react';
+import AppBar from 'material-ui/lib/app-bar';
 
+import { MapContainer } from './Map.jsx';
+import { AppLeftNav } from './AppLeftNav.jsx';
 
-App = React.createClass({
+export const App = React.createClass({
   render() {
     const styles = {
       zIndex: 1401

@@ -1,10 +1,14 @@
-/* global MainLayout, React */
+/* global MainLayout, React, injectTapEventPlugin */
+
+import React from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
-var { ThemeManager, LightRawTheme } = MUI.Styles;
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 
-MainLayout = React.createClass({
+export const MainLayout = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },

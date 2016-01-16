@@ -31,22 +31,15 @@ session
 percolate:momentum
 
 kadira:flow-router
-kadira:react-layout
 arillo:flow-router-helpers
 zimme:active-route
 
 mobile-experience
 chriswessels:hammer
 
-
-
 less
 
-
-
 factory
-
-
 
 accounts-password
 useraccounts:unstyled
@@ -61,8 +54,5 @@ app-prod-security
 mdg:validated-method
 aldeed:simple-schema
 
-
 octopus-gps-server
-react
-izzilab:material-ui
-octopus-admin
+react-meteor-data

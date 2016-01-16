@@ -1,7 +1,7 @@
 /* global Tracks: true */
 /* global SimpleSchema Factory faker */
 
-import { SimpleSchema } from 'aldeed:simple-schema';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 class TracksCollection extends Mongo.Collection {
   insert(doc, callback) {

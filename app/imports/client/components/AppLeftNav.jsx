@@ -1,15 +1,12 @@
-const {
-  LeftNav,
-  Menu,
-  MenuItem,
-  List,
-  ListItem,
-  FontIcon
-} = MUI;
+import React from 'react';
+import LeftNav from 'material-ui/lib/left-nav';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import ContentInbox from 'material-ui/lib/svg-icons/content/inbox';
 
-const ContentInbox = MUI.Libs.SvgIcons.NotificationTimeToLeave;
+import { Modal } from './Modal.jsx';
 
-AppLeftNav = React.createClass({
+export const AppLeftNav = React.createClass({
   getInitialState() {
     return {
       showModalState: false

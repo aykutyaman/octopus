@@ -1,4 +1,6 @@
-Home = React.createClass({
+import React from 'react';
+
+export const Home = React.createClass({
   render() {
     return (
       <div>
