@@ -1,18 +1,20 @@
 /* global Companies: true , SimpleSchema */
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 class CompaniesCollection extends Mongo.Collection {
   insert(doc, callback) {
     doc.createdAt = doc.createdAt || new Date();
-    return super(doc, callback);
+    const result = super(doc, callback);
+    return result;
   }
 }
 
-Companies = new CompaniesCollection('companies');
+export const Companies = new CompaniesCollection('companies');
 
 Companies.deny({
   insert() { return true; },
   update() { return true; },
-  remove() { return true; },
+  remove() { return true; }
 });
 
 const CompaniesSchema = new SimpleSchema({

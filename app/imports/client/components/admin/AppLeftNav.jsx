@@ -11,11 +11,11 @@ export const AppLeftNav = React.createClass({
   },
   getMenuItems() {
     const menuItems = [
-      { text: 'Ana Sayfa', target: '/' }
+      { text: 'Ana Sayfa', target: '/admin' }
     ];
 
     if (Meteor.userId()) {
-      menuItems.push({ text: 'Şirketler', target: '/list-companies' });
+      menuItems.push({ text: 'Şirketler', target: '/admin/companies' });
     }
 
     return menuItems;

@@ -27,26 +27,26 @@ export const Login = React.createClass({
     });
   },
   render() {
-    const paperStyle = {
+    const loginStyle = {
       padding: '30px'
     };
-    return <Paper style={paperStyle} zDepth={3}>
-        <center>
-          <Paper zDepth={0} circle={true}>
-            <img src="https://cdn2.iconfinder.com/data/icons/free-basic-icon-set-2/300/2-128.png" />
-          </Paper>
-          <br />
-          <TextField
-            ref="email"
-            floatingLabelText="E-posta" />
-          <br />
-          <TextField
-            ref="password"
-            floatingLabelText="Şifre"
-            type="password" />
-          <br />
-          <RaisedButton onClick={this.handleSubmit} label="Giriş" secondary={true} />
-        </center>
-      </Paper>;
+    return <div style={loginStyle}>
+    <center>
+      <Paper zDepth={0} circle={true}>
+        <img src="https://cdn2.iconfinder.com/data/icons/free-basic-icon-set-2/300/2-128.png" />
+      </Paper>
+      <br />
+      <TextField
+              ref="email"
+              floatingLabelText="E-posta" />
+      <br />
+      <TextField
+              ref="password"
+              floatingLabelText="Şifre"
+              type="password" />
+      <br />
+      <RaisedButton onClick={this.handleSubmit} label="Giriş" secondary={true} />
+    </center>
+    </div>;
   }
 });

@@ -1,9 +1,21 @@
 /* global Companies, React, ReactDOM, FlowRouter, ReactMeteorData */
+import React from 'react';
 
-const {Paper, List, ListItem, TextField, RaisedButton} = MUI;
-const CompanyIcon = MUI.Libs.SvgIcons.SocialLocationCity;
+import Paper from 'material-ui/lib/paper';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-CompaniesContainer = React.createClass({
+import CompanyIcon from 'material-ui/lib/svg-icons/social/location-city';
+
+import { Companies } from '../../../api/companies/companies.js';
+
+import {
+  newCompany
+} from '../../../api/companies/methods.js';
+
+export const CompaniesContainer = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const handle = Meteor.subscribe('Companies.inList');
@@ -35,10 +47,11 @@ CompaniesContainer = React.createClass({
     const companyName = refs.companyName.getValue().trim();
 
     // Call the Method
-    Companies.methods.newCompany.call({
+    newCompany.call({
       name: companyName
     }, (err) => {
       if (err) {
+	console.log(err);
         if (err.error === 'Companies.methods.newCompany.unauthorized') {
           alert('Yeni şirket eklenemedi.');
         } else {

@@ -1,4 +1,5 @@
 /* global Vehicles: true , SimpleSchema */
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 class VehiclesCollection extends Mongo.Collection {
   insert(doc, callback) {
@@ -7,12 +8,12 @@ class VehiclesCollection extends Mongo.Collection {
   }
 }
 
-Vehicles = new VehiclesCollection('vehicles');
+export const Vehicles = new VehiclesCollection('vehicles');
 
 Vehicles.deny({
   insert() { return true; },
   update() { return true; },
-  remove() { return true; },
+  remove() { return true; }
 });
 
 const CompanySchema = new SimpleSchema({

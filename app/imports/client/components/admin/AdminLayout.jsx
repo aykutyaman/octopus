@@ -6,6 +6,7 @@ import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
+import Paper from 'material-ui/lib/paper';
 
 import { AppLeftNav } from './AppLeftNav.jsx';
 
@@ -36,23 +37,21 @@ export const AdminLayout = React.createClass({
     return Meteor.userId() ? <FlatButton label="Çıkış" onTouchTap={this._handleLogout} /> : null;
   },
   render() {
-    const mainStyles = {
-      padding: '10px'
+    const containerStyle = {
+      padding: 20
     };
-    return (
-      <div>
+    return <div>
       <AppLeftNav ref="nav" />
 
       <AppBar
-      title={"Octopus Admin"}
-      onLeftIconButtonTouchTap={this.openLeftNav}
-      iconElementRight={this.navElementRight()}
+	      title={"Octopus Admin"}
+	      onLeftIconButtonTouchTap={this.openLeftNav}
+	      iconElementRight={this.navElementRight()}
       />
 
-      <div style={mainStyles}>
-      {this.props.content()}
-    </div>
-      </div>
-    );
+      <Paper style={containerStyle} zDepth={3}>
+	{this.props.content()}
+      </Paper>
+    </div>;
   }
 });

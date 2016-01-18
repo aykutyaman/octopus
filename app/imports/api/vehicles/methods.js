@@ -1,7 +1,10 @@
 /* global Vehicles, SimpleSchema */
-Vehicles.methods = {};
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-Vehicles.methods.newVehicle = new ValidatedMethod({
+import { Vehicles } from './vehicles.js';
+
+export const newVehicle = new ValidatedMethod({
   name: 'Vehicles.methods.newVehicle',
   validate: new SimpleSchema({
     companyId: { type: String },

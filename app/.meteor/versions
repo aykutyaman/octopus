@@ -104,7 +104,7 @@ simple:authenticate-user-by-token@1.0.0
 simple:json-routes@2.0.0
 simple:rest-accounts-password@1.1.0
 simple:rest-bearer-token-parser@1.0.0
-softwarerero:accounts-t9n@1.2.0
+softwarerero:accounts-t9n@1.2.1
 spacebars@1.0.8-modules.4
 spacebars-compiler@1.0.8-modules.4
 srp@1.0.5-modules.4

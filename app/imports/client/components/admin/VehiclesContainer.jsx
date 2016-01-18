@@ -1,10 +1,25 @@
 /* global React, ReactMeteorData, Companies, Vehicles, FlowRouter*/
+import React from 'react';
 
-const {Paper, List, ListItem, TextField, RaisedButton} = MUI;
-const VehicleIcon = MUI.Libs.SvgIcons.NotificationTimeToLeave;
-const CompanyIcon = MUI.Libs.SvgIcons.SocialLocationCity;
+import Paper from 'material-ui/lib/paper';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-VehiclesContainer = React.createClass({
+import CompanyIcon  from 'material-ui/lib/svg-icons/social/location-city';
+import VehicleIcon from 'material-ui/lib/svg-icons/notification/time-to-leave';
+
+import { Companies } from '../../../api/companies/companies.js';
+import { Vehicles } from '../../../api/vehicles/vehicles.js';
+
+import {
+  newVehicle
+} from '../../../api/vehicles/methods.js';
+
+
+
+export const VehiclesContainer = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const companyId = FlowRouter.getParam('companyId');
@@ -20,13 +35,13 @@ VehiclesContainer = React.createClass({
   },
   getVehiclesList() {
     return <List>
-    {this.data.vehicles.map( vehicle => {
-      return <ListItem
-      key={vehicle._id}
-      primaryText={vehicle.plate}
-      secondaryText={vehicle.imei}
-      leftIcon={<VehicleIcon />} />;
-    })}
+      {this.data.vehicles.map( vehicle => {
+	return <ListItem
+	key={vehicle._id}
+	primaryText={vehicle.plate}
+	secondaryText={vehicle.imei}
+	leftIcon={<VehicleIcon />} />;
+       })}
     </List>;
   },
   getCompanyInfo() {
@@ -34,7 +49,7 @@ VehiclesContainer = React.createClass({
     const company = Companies.findOne(companyId);
 
     return <div>
-    <h1> <CompanyIcon /> {company.name}</h1>
+      <h1> <CompanyIcon /> {company.name}</h1>
     </div>;
   },
   _submitNewVehicle() {
@@ -50,7 +65,7 @@ VehiclesContainer = React.createClass({
       return;
     }
     // Call the Method
-    Vehicles.methods.newVehicle.call({
+    newVehicle.call({
       companyId: company._id,
       companyName: company.name,
       plate: plate,
@@ -71,27 +86,27 @@ VehiclesContainer = React.createClass({
       marginBottom: 10
     };
     return <div>
-    <Paper style={paperStyle} zDepth={2}>
-    {this.data.company ? this.getCompanyInfo() : 'Şirket bilgileri yükleniyor...'}
-    </Paper>
+      <Paper style={paperStyle} zDepth={2}>
+	{this.data.company ? this.getCompanyInfo() : 'Şirket bilgileri yükleniyor...'}
+      </Paper>
 
-    <Paper style={paperStyle} zDepth={2}>
-    <div className="newVehicle">
-    <h3>Yeni Araç Ekle</h3>
-    <TextField ref="vehiclePlate" hintText="Araç Plakası" />
-    <span> </span>
-    <TextField ref="vehicleImei" hintText="IMEI" />
-    <span> </span>
-    <RaisedButton label="Ekle" onClick={this._submitNewVehicle} secondary={true} />
-    </div>
-    </Paper>
+      <Paper style={paperStyle} zDepth={2}>
+	<div className="newVehicle">
+	  <h3>Yeni Araç Ekle</h3>
+	  <TextField ref="vehiclePlate" hintText="Araç Plakası" />
+	  <span> </span>
+	  <TextField ref="vehicleImei" hintText="IMEI" />
+	  <span> </span>
+	  <RaisedButton label="Ekle" onClick={this._submitNewVehicle} secondary={true} />
+	</div>
+      </Paper>
 
-    <Paper style={paperStyle} zDepth={2}>
-    <div className="vehiclesList">
-    <h3>Araçlar</h3>
-    {this.data.vehicles ? this.getVehiclesList() : 'Araçlar yükleniyor...'}
-    </div>
-    </Paper>
+      <Paper style={paperStyle} zDepth={2}>
+	<div className="vehiclesList">
+	  <h3>Araçlar</h3>
+	  {this.data.vehicles ? this.getVehiclesList() : 'Araçlar yükleniyor...'}
+	</div>
+      </Paper>
 
     </div>;
   }

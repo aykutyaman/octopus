@@ -1,6 +1,5 @@
 /* global FlowRouter, ReactMeteorData */
 import React from 'react';
-import Paper from 'material-ui/lib/paper';
 
 export const AdminHome = React.createClass({
   mixins: [ReactMeteorData],
@@ -17,15 +16,14 @@ export const AdminHome = React.createClass({
     const containerStyle = {
       padding: 50
     };
-    return <div>
-    <Paper style={containerStyle} zDepth={3}>
+
+    return <div style={containerStyle}>
     <center>
-    <h1>Hoşgeldiniz!</h1>
-    { this.data.currentUser ?
-      <h3>{this.getCurrentUserName()}</h3> : ''
-    }
+      <h1>Hoşgeldiniz!</h1>
+      { this.data.currentUser ?
+       <h3>{this.getCurrentUserName()}</h3> : ''
+      }
     </center>
-    </Paper>
     </div>;
   }
 });

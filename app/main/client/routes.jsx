@@ -10,6 +10,8 @@ import { App } from '../../imports/client/components/App.jsx';
 
 import { AdminHome } from '../../imports/client/components/admin/AdminHome.jsx';
 import { Login } from '../../imports/client/components/admin/Login.jsx';
+import { CompaniesContainer } from '../../imports/client/components/admin/CompaniesContainer.jsx';
+import { VehiclesContainer } from '../../imports/client/components/admin/VehiclesContainer.jsx';
 
 FlowRouter.route('/', {
   name: 'home',
@@ -59,4 +61,24 @@ FlowRouter.route('/signin', {
       redirect('adminHome');
     }
   }]
+});
+
+FlowRouter.route('/admin/companies', {
+  name: 'companies',
+  action() {
+    mount(AdminLayout, {
+      content: () => (<CompaniesContainer />)
+    });
+  },
+  triggersEnter: [isAdmin]
+});
+
+FlowRouter.route('/admin/companies/:companyId/vehicles', {
+  name: 'vehicles',
+  action() {
+    mount(AdminLayout, {
+      content: () => (<VehiclesContainer />)
+    });
+  },
+  triggersEnter: [isAdmin]
 });
