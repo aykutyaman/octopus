@@ -22,10 +22,10 @@ Login = React.createClass({
     });
   },
   render() {
-    const paperStyle = {
+    const loginStyle = {
       padding: '30px'
     };
-    return <Paper style={paperStyle} zDepth={3}>
+    return <div style={loginStyle}>
         <center>
           <Paper zDepth={0} circle={true}>
             <img src="https://cdn2.iconfinder.com/data/icons/free-basic-icon-set-2/300/2-128.png" />
@@ -42,6 +42,6 @@ Login = React.createClass({
           <br />
           <RaisedButton onClick={this.handleSubmit} label="Giriş" secondary={true} />
         </center>
-      </Paper>;
+      </div>;
   }
 });

@@ -20,11 +20,21 @@ Package.onUse(function(api) {
     'components/AppLeftNav.jsx',
     'components/Home.jsx',
     'components/Login.jsx',
+    'components/CompaniesContainer.jsx',
+    'components/VehiclesContainer.jsx',
     'admin.less',
     'routes.jsx'
   ], 'client');
 
   api.addFiles([
-    'startup.jsx'
+    'startup.jsx',
+    'publications.js'
   ], 'server');
+
+  api.addFiles([
+    'companies/collections.js',
+    'companies/methods.js',
+    'vehicles/collections.js',
+    'vehicles/methods.js'
+  ]);
 });

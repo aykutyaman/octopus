@@ -32,3 +32,27 @@ FlowRouter.route('/signin', {
     }
   }]
 });
+
+FlowRouter.route('/admin/companies', {
+  name: 'companies',
+  action() {
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <CompaniesContainer />;
+      }
+    });
+  },
+  triggersEnter: [isAdmin]
+});
+
+FlowRouter.route('/admin/companies/:companyId/vehicles', {
+  name: 'vehicles',
+  action() {
+    ReactLayout.render(AdminLayout, {
+      content() {
+        return <VehiclesContainer />;
+      }
+    });
+  },
+  triggersEnter: [isAdmin]
+});
