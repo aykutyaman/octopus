@@ -14,7 +14,6 @@ export const App = React.createClass({
     };
     return (
       <div>
-	<AppBar style={styles} title='Octopus' />
 	<div style={mainStyles}>
 	  <MapContainer />
 	</div>

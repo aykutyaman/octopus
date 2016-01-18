@@ -22,24 +22,13 @@ export const AppLeftNav = React.createClass({
       showModalState: false
     });
   },
-
   render() {
-    const leftNavStyles = {
-      marginTop: 64
-    };
-
-    const foo = {
-      cursor: 'pointer',
-      marginTop: 64
-    };
-
     return (
       <div>
 	<LeftNav
 		open={true}
-		styles={leftNavStyles}
+
 	>
-	  <div style={foo}></div>
 	  <List>
 	    <ListItem
 		    primaryText="Araçlar"
