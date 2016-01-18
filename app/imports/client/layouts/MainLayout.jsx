@@ -2,11 +2,10 @@
 
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
-
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
+
+injectTapEventPlugin();
 
 export const MainLayout = React.createClass({
   childContextTypes: {
