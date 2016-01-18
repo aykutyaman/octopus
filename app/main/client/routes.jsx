@@ -2,8 +2,8 @@ import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
 
-import { MainLayout } from '../../imports/client/layouts/MainLayout.jsx';
-import { AdminLayout } from '../../imports/client/layouts/AdminLayout.jsx';
+import { MainLayout } from '../../imports/client/components/MainLayout.jsx';
+import { AdminLayout } from '../../imports/client/components/admin/AdminLayout.jsx';
 
 import { Home } from '../../imports/client/components/Home.jsx';
 import { App } from '../../imports/client/components/App.jsx';

@@ -7,7 +7,7 @@ import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
 
-import { AppLeftNav } from '../components/admin/AppLeftNav.jsx';
+import { AppLeftNav } from './AppLeftNav.jsx';
 
 injectTapEventPlugin();
 
