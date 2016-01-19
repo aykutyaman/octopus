@@ -22,7 +22,7 @@ FlowRouter.route('/', {
   }
 });
 
-FlowRouter.route('/embed/:deviceId', {
+FlowRouter.route('/embed/:companyId', {
   name: 'embed',
   action() {
     mount(MainLayout, {

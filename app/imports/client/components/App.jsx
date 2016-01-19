@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 
-import { MapContainer } from './Map.jsx';
+import { MapContainer } from './MapContainer.jsx';
 import { AppLeftNav } from './AppLeftNav.jsx';
 
 export const App = React.createClass({
