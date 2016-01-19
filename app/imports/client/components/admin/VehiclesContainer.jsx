@@ -6,6 +6,12 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
+import FontIcon from 'material-ui/lib/font-icon';
+import Toolbar from 'material-ui/lib/toolbar/toolbar';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
 import CompanyIcon  from 'material-ui/lib/svg-icons/social/location-city';
 import VehicleIcon from 'material-ui/lib/svg-icons/notification/time-to-leave';
@@ -47,10 +53,15 @@ export const VehiclesContainer = React.createClass({
   getCompanyInfo() {
     const companyId = FlowRouter.getParam('companyId');
     const company = Companies.findOne(companyId);
-
-    return <div>
-      <h1> <CompanyIcon /> {company.name}</h1>
-    </div>;
+    return (
+      <Toolbar>
+	<ToolbarTitle text={company.name} />
+	<ToolbarGroup float="right">
+	  <ToolbarSeparator />
+	  <RaisedButton label="Araçları Haritada Görüntüle" primary={true} linkButton={true} href={'/embed/' + companyId} />
+	</ToolbarGroup>
+      </Toolbar>
+    );
   },
   _submitNewVehicle() {
     const refs = this.refs;
@@ -85,29 +96,28 @@ export const VehiclesContainer = React.createClass({
       padding: 20,
       marginBottom: 10
     };
-    return <div>
-      <Paper style={paperStyle} zDepth={2}>
-	{this.data.company ? this.getCompanyInfo() : 'Şirket bilgileri yükleniyor...'}
-      </Paper>
-
-      <Paper style={paperStyle} zDepth={2}>
-	<div className="newVehicle">
-	  <h3>Yeni Araç Ekle</h3>
-	  <TextField ref="vehiclePlate" hintText="Araç Plakası" />
-	  <span> </span>
-	  <TextField ref="vehicleImei" hintText="IMEI" />
-	  <span> </span>
-	  <RaisedButton label="Ekle" onClick={this._submitNewVehicle} secondary={true} />
-	</div>
-      </Paper>
-
-      <Paper style={paperStyle} zDepth={2}>
-	<div className="vehiclesList">
-	  <h3>Araçlar</h3>
-	  {this.data.vehicles ? this.getVehiclesList() : 'Araçlar yükleniyor...'}
-	</div>
-      </Paper>
-
-    </div>;
+    return (
+      <div>
+	<Paper style={paperStyle} zDepth={2}>
+	  {this.data.company ? this.getCompanyInfo() : 'Şirket bilgileri yükleniyor...'}
+	</Paper>
+	<Paper style={paperStyle} zDepth={2}>
+	  <div className="newVehicle">
+	    <h3>Yeni Araç Ekle</h3>
+	    <TextField ref="vehiclePlate" hintText="Araç Plakası" />
+	    <span> </span>
+	    <TextField ref="vehicleImei" hintText="IMEI" />
+	    <span> </span>
+	    <RaisedButton label="Ekle" onClick={this._submitNewVehicle} secondary={true} />
+	  </div>
+	</Paper>
+	<Paper style={paperStyle} zDepth={2}>
+	  <div className="vehiclesList">
+	    <h3>Araçlar</h3>
+	    {this.data.vehicles ? this.getVehiclesList() : 'Araçlar yükleniyor...'}
+	  </div>
+	</Paper>
+      </div>
+    );
   }
 });

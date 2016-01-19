@@ -42,13 +42,11 @@ export const AdminLayout = React.createClass({
     };
     return <div>
       <AppLeftNav ref="nav" />
-
       <AppBar
 	      title={"Octopus Admin"}
 	      onLeftIconButtonTouchTap={this.openLeftNav}
 	      iconElementRight={this.navElementRight()}
       />
-
       <Paper style={containerStyle} zDepth={3}>
 	{this.props.content()}
       </Paper>
