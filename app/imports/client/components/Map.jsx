@@ -27,7 +27,7 @@ export const Map = React.createClass({
 	<div id="map" className="googleMap"></div>
 	<MeteorData
 		subscribe = { () => {
-			     return Meteor.subscribe('Track.foo') }}
+			     return Meteor.subscribe('Tracks.single') }}
 		fetch = { () => {
 			 return {data: Tracks.findOne()}}}
 		render = { ({loading, data}) => {

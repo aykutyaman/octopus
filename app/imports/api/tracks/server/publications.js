@@ -2,6 +2,6 @@
 
 import { Tracks } from '../tracks.js';
 
-Meteor.publish('Track.foo', () => {
+Meteor.publish('Tracks.single', () => {
   return Tracks.find({}, {sort: {createdAt: -1}, limit: 1});
 });
