@@ -1,3 +1,5 @@
+var DeviceInfo = require('react-native-device-info');
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -13,10 +15,11 @@ import React, {
 
 class ReactNativeEmulator extends Component {
   render() {
+    const id = DeviceInfo.getUniqueID();
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+        Welcome to {id}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
