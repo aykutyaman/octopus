@@ -3,9 +3,12 @@ let DeviceInfo = require('react-native-device-info');
 
 import React, {
   StyleSheet,
-  Text,
-  View
+  View,
+  Navigator,
+  Text
 } from 'react-native';
+
+import { Foo } from './Foo.js';
 
 export const Main = React.createClass({
   // configuration
@@ -35,21 +38,42 @@ export const Main = React.createClass({
   componentWillUnmount: function() {
     navigator.geolocation.clearWatch(this.watchID);
   },
+  renderScene(route, navigator) {
+    let Component = route.component;
+
+    let title = {};
+    if (route.title) {
+      title.title = route.title;
+    }
+
+    return (
+      <View style={styles.container}>
+      <Component
+      navigator={navigator}
+      {...route.passProps}
+      />
+      </View>
+    );
+  },
+
+  // Navigator Config
+  configureScene(route) {
+    if (route.sceneConfig) {
+      return route.sceneConfig;
+    }
+    return Navigator.SceneConfigs.HorizontalSwipeJump;
+  },
   render() {
     const id = DeviceInfo.getUniqueID();
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-        Welcome to {id}
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-        <Text> Current position: </Text>
-        {this.state.lastPosition}
-        </Text>
-      </View>
+      <Navigator
+      initialRoute={{
+        component: Foo,
+        title: "Todo Lists"
+      }}
+      renderScene={this.renderScene}
+      configureScene={this.configureScene}
+      />
     );
   }
 });
