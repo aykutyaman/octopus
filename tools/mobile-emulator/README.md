@@ -22,6 +22,21 @@
 - ` $ cd ReactNativeEmulator `Yeni bir shell
 - ` $ react-native run-android `
 
+### Konsoldan Lokasyon Emülasyonu Yapma
+```
+$ telnet localhost 5554
+...
+Trying 127.0.0.1...
+Connected to localhost.
+...
+geo fix 41.0689 29.0106
+```
 
 # Hatalar
-[The user limit on the total number of inotify watches was reached](https://github.com/facebook/watchman/issues/163)
+- [The user limit on the total number of inotify watches was reached](https://github.com/facebook/watchman/issues/163) =
+```
+echo 256 | sudo tee -a /proc/sys/fs/inotify/max_user_instances
+echo 32768 | sudo tee -a /proc/sys/fs/inotify/max_queued_events
+echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches
+watchman shutdown-server
+```
