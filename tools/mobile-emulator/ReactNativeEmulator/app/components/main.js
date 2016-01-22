@@ -8,7 +8,8 @@ import React, {
   Text
 } from 'react-native';
 
-import { Foo } from './Foo.js';
+import { SendLocation } from './SendLocation.js';
+import { AppOptions } from './AppOptions.js';
 
 export const Main = React.createClass({
   // configuration
@@ -21,7 +22,6 @@ export const Main = React.createClass({
     };
   },
   componentDidMount: function() {
-    console.log(navigator);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
@@ -68,8 +68,9 @@ export const Main = React.createClass({
     return (
       <Navigator
       initialRoute={{
-        component: Foo,
-        title: "Todo Lists"
+        component: SendLocation,
+        title: "Lokasyon Bildir",
+	leftButton: <AppOptions />
       }}
       renderScene={this.renderScene}
       configureScene={this.configureScene}
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    //backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    //color: '#333333',
     marginBottom: 5,
   },
 });
