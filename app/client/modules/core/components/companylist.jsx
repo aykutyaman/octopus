@@ -15,7 +15,7 @@ const CompanyList = ({companies}) => (
 	  <div className="panel-heading">Şirketler</div>
 	  <div className="list-group">
 	    {companies.map(company => (
-	      <a href={`/admin/companies/${company._id}/vehicles`} className="list-group-item" key={company._id}>{company.name}</a>
+	      <a href={`/admin/companies/${company._id}`} className="list-group-item" key={company._id}>{company.name}</a>
 	     ))}
 	  </div>
 	</div>

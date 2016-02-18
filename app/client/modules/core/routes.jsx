@@ -6,7 +6,7 @@ import {MapLayout} from '/client/configs/theme.jsx';
 
 import CompanyList from './containers/companylist';
 import NewCompany from './containers/newcompany';
-import VehicleList from './containers/vehiclelist';
+import Company from './containers/company';
 import NewVehicle from './containers/newvehicle';
 import Map from './containers/map';
 
@@ -42,11 +42,11 @@ export default function(injectDeps, {FlowRouter}) {
     triggersEnter: [isAdmin]
   });
 
-  FlowRouter.route('/admin/companies/:companyId/vehicles', {
-    name: 'vehicles',
+  FlowRouter.route('/admin/companies/:companyId', {
+    name: 'company',
     action({companyId}) {
       mount(AdminLayoutCtx, {
-	content: () => (<VehicleList companyId={companyId}/>)
+	content: () => (<Company companyId={companyId}/>)
       });
     },
     triggersEnter: [isAdmin]

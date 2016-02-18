@@ -3,7 +3,6 @@ import {mount} from 'react-mounter';
 import {AdminLayout} from '/client/configs/theme.jsx';
 import Login from './components/account/login.jsx';
 
-
 export default function(injectDeps, {FlowRouter}) {
   const AdminLayoutCtx = injectDeps(AdminLayout);
 

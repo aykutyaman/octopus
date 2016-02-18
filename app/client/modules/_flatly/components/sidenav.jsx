@@ -1,6 +1,6 @@
 import React from 'react';
-
 import Modal from 'react-modal-dumb';
+import VehicleList from '../../core/containers/vehiclelist';
 
 const SideNav = React.createClass({
   getInitialState: function() {
@@ -13,11 +13,14 @@ const SideNav = React.createClass({
   },
   render: function() {
     const {editing} = this.state;
+    //const companyId = companyId;
+    const companyId = FlowRouter.getParam("companyId");
+
     return (
       <ul className="nav nav-sidebar">
 	<li><a href="#" id="modal-launcher" onClick={() => this.setEditing(true)}>Araç Listesi</a></li>
 	<Modal show={editing} close={()=> this.setEditing(false)}>
-	  hello modal
+	  <VehicleList companyId={companyId} />
 	</Modal>
       </ul>
     )
