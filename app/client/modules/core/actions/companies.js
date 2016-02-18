@@ -1,6 +1,5 @@
 export default {
   create({Meteor, LocalState, FlowRouter}, name) {
-    console.log(name);
     if (!name) {
       return LocalState.set('SAVING_ERROR', 'Başlık girmek zorunludur.');
     }
@@ -14,11 +13,10 @@ export default {
         return LocalState.set('SAVING_ERROR', err.message);
       }
     });
-    // FlowRouter.go('/admin/companies');
+    FlowRouter.go('/admin/companies');
   },
 
   clearErrors({LocalState}) {
-    console.log('clearErrors');
     return LocalState.set('SAVING_ERROR', null);
   }
 };

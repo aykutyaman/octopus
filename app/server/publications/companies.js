@@ -9,4 +9,10 @@ export default function() {
       sort: {name: 1}
     });
   });
+
+  Meteor.publish('companies.single', function(companyId) {
+    check(companyId, String);
+    const selector = {_id: companyId};
+    return Companies.find(selector);
+  });
 }

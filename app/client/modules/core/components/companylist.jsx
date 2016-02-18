@@ -6,20 +6,18 @@ const CompanyList = ({companies}) => (
       <div className="col-md-3">
 	<ul className="nav nav-pills nav-stacked">
 	  <li role="presentation">
-	    <a href="#">Yeni Şirket Ekle</a>
+	    <a href="/admin/new-company">Yeni Şirket Ekle</a>
 	  </li>
 	</ul>
       </div>
       <div className="col-md-9">
 	<div className="panel panel-default">
 	  <div className="panel-heading">Şirketler</div>
-	  <ul className="list-group">
+	  <div className="list-group">
 	    {companies.map(company => (
-	      <li className="list-group-item" key={company._id}>
-	      {company.name}
-	      </li>
+	      <a href={`/admin/companies/${company._id}/vehicles`} className="list-group-item" key={company._id}>{company.name}</a>
 	     ))}
-	  </ul>
+	  </div>
 	</div>
       </div>
     </div>
