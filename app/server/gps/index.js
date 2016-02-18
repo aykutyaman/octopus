@@ -29,7 +29,7 @@ export default function() {
       fibers(() => {
         try {
           Tracks.insert({
-            deviceId: deviceId,
+            imei: deviceId,
             location: {
               coordinates: [data.latitude, data.longitude],
 	      type: 'Point'

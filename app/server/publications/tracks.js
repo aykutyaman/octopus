@@ -1,12 +1,19 @@
 import {Meteor} from 'meteor/meteor';
 import {Tracks} from '/lib/collections';
+import {Vehicles} from '/lib/collections';
 import {check} from 'meteor/check';
 
 export default function() {
   Meteor.publish('tracks.single', function(vehicleId) {
     check(vehicleId, String);
 
-    const selector = {vehicleId: vehicleId};
+    const vehicle = Vehicles.findOne({_id: vehicleId});
+
+    if (!vehicle || !vehicle.imei) {
+      throw new Meteor.Error(701, 'Araç bilgisine ulaşılamıyor.');
+    }
+
+    const selector = {imei: vehicle.imei};
     return Tracks.find(selector);
 
 
