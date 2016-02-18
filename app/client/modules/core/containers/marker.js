@@ -8,13 +8,12 @@ export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
   // listeden bir arac secilmedi
-  const vehicleId = LocalState.get('vehicleId');
-  console.log(vehicleId);
+  const vehicleId = LocalState.get('vehicle_selected');
   if (!vehicleId) return;
 
-  if (Meteor.subscribe('tracks.single').ready()) {
-    console.log('tracks.single subs. is ready');
+  if (Meteor.subscribe('tracks.single', vehicleId).ready()) {
     const track = Collections.Tracks.findOne();
+    console.log(track);
     onData(null, {track});
   }
 };

@@ -17,21 +17,21 @@ const Marker = React.createClass({
       new google.maps.Size(62, 88)
     );
 
-    // TODO: haritayi almak icin GoogleMaps paketinin bir fonksiyonu kullaniliyor.
-    // Bunun yerine Map komponenti buraya haritayi parametre olarak gondermeli.
-    GoogleMaps.ready('myMap', (map) => {
-      const marker = new google.maps.Marker({
-        map: map.instance,
-        icon: markerImage
-      });
-      this.setState({
-        map: map,
-        marker: marker
-      });
+    const map = GoogleMaps.maps.myMap;
+    const {instance} = map;
 
-      marker.addListener('click', function() {
-        tooltip.open(map.instance, marker);
-      });
+    const marker = new google.maps.Marker({
+      map: instance,
+      icon: markerImage
+    });
+
+    this.setState({
+      map: map,
+      marker: marker
+    });
+
+    marker.addListener('click', function() {
+      tooltip.open(map.instance, marker);
     });
   },
 
