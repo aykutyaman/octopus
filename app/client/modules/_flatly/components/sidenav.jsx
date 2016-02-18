@@ -13,8 +13,7 @@ const SideNav = React.createClass({
   },
   render: function() {
     const {editing} = this.state;
-    //const companyId = companyId;
-    const companyId = FlowRouter.getParam("companyId");
+    const {companyId} = this.props;
 
     return (
       <ul className="nav nav-sidebar">

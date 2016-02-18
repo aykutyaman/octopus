@@ -67,7 +67,8 @@ export default function(injectDeps, {FlowRouter}) {
     name: 'map',
     action({companyId}) {
       mount(MapLayoutCtx, {
-	content: () => (<Map companyId={companyId}/>)
+	content: () => (<Map companyId={companyId}/>),
+	companyId: companyId
       });
     },
     triggersEnter: [isAdmin]

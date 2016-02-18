@@ -25,9 +25,7 @@ const Company = ({company}) => (
       </div>
       <div className="col-md-9">
 	<div className="panel panel-default">
-
 	  <VehiclesList companyId={company._id} />
-
 	</div>
       </div>
     </div>
