@@ -9,22 +9,9 @@ import {GoogleMaps} from 'meteor/dburles:google-maps';
  */
 export const composer = ({context, companyId}, onData) => {
   const {Meteor, Collections} = context();
-
   GoogleMaps.load();
-
   if (GoogleMaps.loaded()) {
     onData(null, {});
-  }
-
-  if (GoogleMaps.loaded()) {
-    GoogleMaps.create({
-      name: 'myMap',
-      element: document.getElementById('map'),
-      options: {
-	center: new google.maps.LatLng(39.934486, 32.853241),
-	zoom: 7
-      }
-    });
   }
 };
 

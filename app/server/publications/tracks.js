@@ -1,8 +1,15 @@
 import {Meteor} from 'meteor/meteor';
 import {Tracks} from '/lib/collections';
+import {check} from 'meteor/check';
 
 export default function() {
   Meteor.publish('tracks.single', function(vehicleId) {
+    check(vehicleId, String);
+
+    const selector = {vehicleId: vehicleId};
+    return Tracks.find(selector);
+
+
     //39.869753, 32.821363
     const doc = {
       location: {
