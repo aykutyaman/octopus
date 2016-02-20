@@ -2,8 +2,12 @@ import {Meteor} from 'meteor/meteor';
 import {Tracks} from '/lib/collections';
 import {Vehicles} from '/lib/collections';
 import {check} from 'meteor/check';
+import dummy from '../gps/dummy';
 
 export default function() {
+
+  //dummy(562002524475, 0); //imei, index
+
   Meteor.publish('tracks.single', function(vehicleId) {
     check(vehicleId, String);
 
@@ -14,25 +18,7 @@ export default function() {
     }
 
     const selector = {imei: vehicle.imei};
-    return Tracks.find(selector);
-
-
-    //39.869753, 32.821363
-    const doc = {
-      location: {
-	coordinates: [39.869753,32.821363]
-      },
-      deviceId: 'haleluya',
-      createdAt: new Date()
-    };
-
-    this.added('tracks', 'myId', doc);
-    this.ready();
-
-    Meteor.setTimeout(() => {
-      doc.location.coordinates = [39.869353,32.821310];
-      this.changed('tracks', 'myId', doc);
-    }, 3000);
-
+    const options  = {sort: {createdAt: -1}, limit: 1};
+    return Tracks.find(selector, options);
   });
 }

@@ -56,6 +56,7 @@ const Marker = React.createClass({
   },
 
   render: function() {
+    console.log('hell');
     this.setMarkerPosition();
     return (
       <div>dummy!</div>
