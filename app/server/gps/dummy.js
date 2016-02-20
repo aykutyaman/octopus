@@ -401,7 +401,7 @@ var coordinates = [
 
 import {Tracks} from '/lib/collections';
 
-function dummy(imei, index) {
+function dummy(imei, index, seconds) {
   console.log(index);
   //console.log(imei);
   Tracks.insert({
@@ -414,8 +414,8 @@ function dummy(imei, index) {
   });
   Meteor.setTimeout(function() {
     index++;
-    dummy(imei, index);
-  }, 200);
+    dummy(imei, index, seconds);
+  }, seconds);
 
 }
 
