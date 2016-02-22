@@ -25,10 +25,14 @@ const SideNav = React.createClass({
 
     return (
       <ul className="nav nav-sidebar">
-	<li><a href="#" id="modal-launcher" onClick={() => this.setEditing(true)}>Araç Listesi</a></li>
-	<Modal show={editing} close={()=> this.setEditing(false)}>
-	  <VehicleList companyId={companyId} handler={this.vehicleSelected} />
-	</Modal>
+	      <li>
+          <a href="#" id="modal-launcher" onClick={() => this.setEditing(true)}>
+            <img src="https://s3-eu-west-1.amazonaws.com/kuresel-v4/img/two-cars-in-line.svg" alt="Araç listesi" />
+          </a>
+        </li>
+	      <Modal show={editing} close={()=> this.setEditing(false)}>
+	        <VehicleList companyId={companyId} handler={this.vehicleSelected} />
+	      </Modal>
       </ul>
     )
   }
