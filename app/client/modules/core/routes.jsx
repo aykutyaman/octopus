@@ -22,6 +22,13 @@ export default function(injectDeps, {FlowRouter}) {
     }
   };
 
+  FlowRouter.route('/', {
+    triggersEnter: [(context, redirect) => {
+      redirect('/login');
+    }]
+  });
+
+
   FlowRouter.route('/admin/companies', {
     name: 'companies.list',
     action() {
