@@ -20,6 +20,7 @@
     "enzyme": "1.x.x",
     "eslint": "1.10.x",
     "eslint-plugin-react": "3.15.x",
+    "fbjs": "^0.7.2",
     "jsdom": "^8.0.4",
     "mocha": "2.x.x",
     "react-addons-test-utils": "^0.14.6",
