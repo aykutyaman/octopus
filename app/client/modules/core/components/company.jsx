@@ -7,11 +7,13 @@ const Company = ({company}) => (
       <nav className="navbar navbar-default">
 	<div className="container-fluid">
           <div className="navbar-header">
-	    <a className="navbar-brand" href="#">{company.name}</a>
+	    <a className="navbar-brand" href="#"><h2>{company.name}</h2></a>
 	  </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
             <p className="navbar-text navbar-right">
-	      <a href={`/map/${company._id}`} className="navbar-link">Araçları Haritada Görüntüle</a>
+	      <a href={`/map/${company._id}`} className="navbar-link map-link">
+		Araçları Haritada Görüntüle
+	      </a>
             </p>
           </div>
 	</div>
