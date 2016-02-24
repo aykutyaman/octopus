@@ -7,7 +7,7 @@ const Company = ({company}) => (
       <nav className="navbar navbar-default">
 	<div className="container-fluid">
           <div className="navbar-header">
-	    <a className="navbar-brand" href="#"><h2>{company.name}</h2></a>
+	    <a className="navbar-brand" href="#"><h4>{company.name}</h4></a>
 	  </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
             <p className="navbar-text navbar-right">
