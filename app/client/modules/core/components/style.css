@@ -1,10 +1,18 @@
 html {
-    height: 100%;
+  height: 100%;
+}
+
+#react-root {
+  height: 100%;
+}
+
+.admin-layout {
+  padding-top: 50px;
 }
 
 #map-container {
-    height: 500px;
-    width: calc(100%);
+  height: 100%;
+  width: calc(90%);
 }
 
 #map.googleMap {
@@ -12,5 +20,34 @@ html {
   top: 0;
   bottom: 0;
   z-index: 0;
-  width: calc(100%);
+  width: calc(90%);
+  height: 100%;
+}
+
+.map-layout {
+  height: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.map-sidebar {
+  width: 10%;
+  display: inline;
+  height: 100%;
+  float: left;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #F9F3E6;
+}
+.map-sidebar img {
+  width: 100%;
+  height: 100%;
+}
+
+.map-main {
+  width: 90%;
+  height: 100%;
+  display: inline;
+  float: left;
+  padding-left: 0px;
+  padding-right: 0px;
 }
