@@ -31,7 +31,7 @@ const SideNav = React.createClass({
           </a>
         </li>
 	      <Modal show={editing} close={()=> this.setEditing(false)}>
-	        <VehicleList companyId={companyId} handler={this.vehicleSelected} />
+	        <VehicleList companyId={companyId} onVehicleClick={this.vehicleSelected} />
 	      </Modal>
       </ul>
     )

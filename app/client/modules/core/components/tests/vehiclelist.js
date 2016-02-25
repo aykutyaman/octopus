@@ -21,7 +21,7 @@ describe('core.components.vehiclelist', () => {
       expect(e).to.be.equal(vehicles[0]['_id']);
       done();
     };
-    const el = shallow(<VehicleList vehicles={vehicles}  handler={handler} />);
+    const el = shallow(<VehicleList vehicles={vehicles}  onVehicleClick={handler} />);
     const firstItem = el.find('a.list-group-item').first();
     firstItem.simulate('click');
   });
