@@ -13,7 +13,6 @@ export const composer = ({context}, onData) => {
 
   if (Meteor.subscribe('tracks.single', vehicleId).ready()) {
     const track = Collections.Tracks.findOne();
-    console.log(track);
     if (track) {
       onData(null, {track});
     } else {

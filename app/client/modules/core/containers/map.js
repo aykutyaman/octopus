@@ -11,11 +11,18 @@ export const composer = ({context, companyId}, onData) => {
   const {Meteor, Collections} = context();
   GoogleMaps.load();
   if (GoogleMaps.loaded()) {
-    onData(null, {});
+    onData(null, {GoogleMaps, google});
   }
 };
 
+export const depsMapper = (context, actions) => ({
+  create: actions.map.create,
+  update: actions.map.update,
+  context: () => context
+});
+
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(Map);

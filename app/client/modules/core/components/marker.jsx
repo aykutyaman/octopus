@@ -47,16 +47,11 @@ const Marker = React.createClass({
 
     if (map && marker) {
       marker.setPosition(latLng);
-      console.log('update marker');
-
-      // Center and zoom the map view onto the current position.
-      map.instance.setCenter(marker.getPosition());
-      map.instance.setZoom(15);
+      this.props.handler(marker.getPosition());
     };
   },
 
   render: function() {
-    console.log('hell');
     this.setMarkerPosition();
     return (
       <div>dummy!</div>

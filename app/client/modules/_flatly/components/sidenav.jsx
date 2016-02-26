@@ -6,6 +6,9 @@ const SideNav = React.createClass({
   componentDidMount: function() {
     const {LocalState} = this.props.context();
     this.LocalState = LocalState;
+    // defaults
+    this.LocalState.set('ZOOM_VEHICLE', true);
+    this.LocalState.set('CENTER_VEHICLE', true);
   },
   getInitialState: function() {
     return {
@@ -17,22 +20,39 @@ const SideNav = React.createClass({
   },
   vehicleSelected: function(vehicleId) {
     this.LocalState.set('vehicle_selected', vehicleId)
-    this.setEditing(false);
+      this.setEditing(false);
   },
   render: function() {
     const {editing} = this.state;
     const {companyId} = this.props;
 
+    const toggleZoom = () => {
+      this.LocalState.set('ZOOM_VEHICLE', !this.LocalState.get('ZOOM_VEHICLE'));
+    }
+    const toggleCenter = () => {
+      this.LocalState.set('CENTER_VEHICLE', !this.LocalState.get('CENTER_VEHICLE'));
+    }
+
     return (
       <ul className="nav nav-sidebar">
-	      <li>
+	<li>
           <a href="#" id="modal-launcher" onClick={() => this.setEditing(true)}>
-            <img src="https://s3-eu-west-1.amazonaws.com/kuresel-v4/img/two-cars-in-line.svg" alt="Araç listesi" />
+	    Araç listesi
           </a>
         </li>
-	      <Modal show={editing} close={()=> this.setEditing(false)}>
-	        <VehicleList companyId={companyId} onVehicleClick={this.vehicleSelected} />
-	      </Modal>
+	<li>
+          <a href="#" onClick={() => toggleZoom()}>
+	    Zoom
+          </a>
+	</li>
+	<li>
+          <a href="#" onClick={() => toggleCenter()}>
+	    Merkez
+          </a>
+	</li>
+	<Modal show={editing} close={()=> this.setEditing(false)}>
+	  <VehicleList companyId={companyId} onVehicleClick={this.vehicleSelected} />
+	</Modal>
       </ul>
     )
   }
