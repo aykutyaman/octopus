@@ -13,6 +13,7 @@ export default function() {
   GPS.server(config, (device, connection) => {
 
     device.on('login_request', function(deviceId, msgParts) {
+      console.log('login request');
       // Some devices sends a login request before transmitting their position
       // Do some stuff before authenticate the device...
 
@@ -23,6 +24,7 @@ export default function() {
 
     // PING -> When the gps sends their position
     device.on('ping', function(data) {
+      console.log(data);
       // TODO: Fiber icinde olmadan cihaz ID'sini almak burada bir bocek yaratmis olabilir
       // Bakiniz: http://stackoverflow.com/questions/34263014/how-to-access-original-context-with-fiber
       const deviceId = this.getUID();
@@ -44,6 +46,7 @@ export default function() {
 
     device.on('login_rejected', () => {
       // login rejected
+      console.log('login_rejected');
     });
 
     device.on('alarm', (alarm_code, alarm_data, msg_data) => {
@@ -52,6 +55,7 @@ export default function() {
 
     device.on('handshake', () => {
       // handshake
+      console.log('handshake');
     });
 
   });

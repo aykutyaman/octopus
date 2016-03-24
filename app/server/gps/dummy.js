@@ -402,8 +402,10 @@ var coordinates = [
 import {Tracks} from '/lib/collections';
 
 function dummy(imei, index, seconds) {
-  console.log(index);
-  //console.log(imei);
+  if (index === coordinates.length) {
+    index = 0;
+    Tracks.remove({});
+  }
   Tracks.insert({
     imei: String(imei),
     location: {
