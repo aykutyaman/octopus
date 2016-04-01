@@ -1,26 +1,18 @@
 import {Tracks} from '/lib/collections';
 import fibers from 'fibers';
-import GPS from 'gps-tracking';
+import GPS from 'octopus-gps-tracking';
 
 export default function() {
 
   const config = {
     debug: true,
     port: 8090,
-    device_adapter: 'TK103'
+    device_adapter: 'TK103_2'
   };
 
   GPS.server(config, (device, connection) => {
 
-    device.on('login_request', function(deviceId, msgParts) {
-      console.log('login request');
-      // Some devices sends a login request before transmitting their position
-      // Do some stuff before authenticate the device...
-
-      // Accept the login request. You can set false to reject the device.
-      //this.login_authorized(true);
-      this.login_authorized(true);
-    });
+    device.login_authorized(true);
 
     // PING -> When the gps sends their position
     device.on('ping', function(data) {
@@ -31,11 +23,12 @@ export default function() {
       fibers(() => {
         try {
           Tracks.insert({
-            imei: deviceId,
+            imei: data.imei,
             location: {
               coordinates: [data.latitude, data.longitude],
 	      type: 'Point'
-            }
+            },
+            createdAt: data.time
           });
         } catch (e) {
           console.log(e);
