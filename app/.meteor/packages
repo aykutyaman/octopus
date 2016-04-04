@@ -40,4 +40,3 @@ ddp-rate-limiter
 mdg:validated-method
 aldeed:simple-schema
 accounts-base
-kadira:graphql
