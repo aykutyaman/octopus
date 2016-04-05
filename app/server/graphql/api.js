@@ -15,12 +15,9 @@ Picker.route('/graphql', function(params, req, res, next) {
   if (req.method === "POST") {
     graphql(schema, req.body)
       .then((result) => {
-        console.log('RESULTTT');
-        console.log(result);
         res.end(JSON.stringify(result, null, 2));
       });
   } else {
-    console.log('only post');
     res.writeHead(500);
     res.end("Sadece POST sorgusu yapabilirsiniz. ");
   }
