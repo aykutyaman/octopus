@@ -5,16 +5,26 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt,
+  GraphQLFloat,
   GraphQLString
 } from 'graphql';
 
-//import { Vehicles } from '../../lib/collections';
+import CustomGraphQLDateType from 'graphql-custom-datetype';
+
+import { DB } from './db';
 
 const Journey = new GraphQLObjectType({
   name: "Report",
   description: "This represent a report",
   fields: () => ({
-    plate: {type: new GraphQLNonNull(GraphQLString)},
+    plate: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "Aracın plakası"
+    },
+    imei: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "Araç IMEI"
+    },
     startedAt: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Aracın seyahate başladığı tarih"
@@ -25,19 +35,19 @@ const Journey = new GraphQLObjectType({
     },
     workedTime: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Aracın çalışma süresi"
+      description: "Aracın çalışma süresi (dakika)"
     },
     movedTime: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Aracın hareket süresi "
+      description: "Aracın hareket süresi (dakika)"
     },
     movedDistance: {
-      type: new GraphQLNonNull(GraphQLInt),
-      description: "Aracın hareket mesafesi"
+      type: new GraphQLNonNull(GraphQLFloat),
+      description: "Aracın hareket mesafesi (km)"
     },
     idleTime: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Aracın rölanti süresi"
+      description: "Aracın rölanti süresi (dakika)"
     },
     averageVelocity: {
       type: new GraphQLNonNull(GraphQLInt),
@@ -54,8 +64,7 @@ const Journey = new GraphQLObjectType({
     stoppedAddress: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Aracın hareket bitiş adresi"
-    },
-    imei: {type: new GraphQLNonNull(GraphQLString)}
+    }
   })
 });
 
@@ -67,19 +76,24 @@ let schema = new GraphQLSchema({
       journeyReports: {
         type: new GraphQLList(Journey),
         args: {
-          count: {type: GraphQLInt}
+          limit: {
+            type: GraphQLInt,
+            defaultValue: 5
+          },
+          from: {
+            type: CustomGraphQLDateType,
+            description: "Sorgu başlangıç tarihi"
+          },
+          to: {
+            type: CustomGraphQLDateType,
+            description: "Sorgu bitiş tarihi"
+          },
+          plates: {
+            type: new GraphQLList(GraphQLString)
+          }
         },
-        resolve: function(source, args, root, ast) {
-          // TODO: Filter only requested fields
-
-          //return Vehicles.find().fetch();
-          return [
-            {
-              plate: '06-FP-8328',
-              startedAt: new Date(),
-              stoppedAt: new Date()
-            }
-          ];
+        resolve: function(source, {plates, limit, from, to}, root, ast) {
+          return DB.Reports.getJourneys({plates, limit, from, to});
         }
       }
     })

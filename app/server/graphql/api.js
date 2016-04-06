@@ -13,10 +13,14 @@ Picker.middleware(bodyParser.json());
 
 Picker.route('/graphql', function(params, req, res, next) {
   if (req.method === "POST") {
-    graphql(schema, req.body)
-      .then((result) => {
-        res.end(JSON.stringify(result, null, 2));
-      });
+    const response = Meteor.call(
+      'graphql.transport', req.body
+    );
+    const json = JSON.stringify(response);
+    res.writeHead(200, {
+      'Content-Type': 'application/json'
+    });
+    res.end(json);
   } else {
     res.writeHead(500);
     res.end("Sadece POST sorgusu yapabilirsiniz. ");

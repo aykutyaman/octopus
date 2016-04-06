@@ -22,6 +22,9 @@ export default function() {
       const deviceId = this.getUID();
       fibers(() => {
         try {
+
+          console.log(data);
+
           Tracks.insert({
             imei: data.imei,
             location: {

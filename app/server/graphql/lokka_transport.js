@@ -13,9 +13,11 @@ Meteor.methods({
 
     graphql(schema, query, rootValue, vars, operationName)
       .then(result => {
+        // XXX: Why there is errors here?
+        if (result.errors) console.log(result);
         f.return(result);
       })
-      .catch(error => {
+      .catch(error => {// XXX: Why does not throw exception?
         f.throw(error);
       });
 
