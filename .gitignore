@@ -1,3 +1,14 @@
 app/node_modules/
 app/.mup
 app/npm-debug.log
+
+### Emacs ###
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
