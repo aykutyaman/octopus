@@ -14,7 +14,7 @@ class NewVehicle extends React.Component {
 	  <select ref="companyRef" className="form-control">
 	    <option key="">Şirket Seçin</option>
 	    {companies.map(company => (
-	      <option key={company._id} value={company._id}>{company.name}</option>
+	      <option key={company._id} className="companies-option" value={company._id}>{company.name}</option>
 	     ))}
 	  </select>
 	  <input ref="plateRef" type="Text" placeholder="Araç Plakası" /> <br/>
