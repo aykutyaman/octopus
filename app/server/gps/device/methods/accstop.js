@@ -2,6 +2,8 @@ import { DB } from '/server/graphql/db';
 
 export const accStop = (data) => {
   console.log('ACCStop received');
+
+  // vehicle
   const vehicle = DB.Vehicles.getByImei(data.imei);
   if (!vehicle) {
     throw new Error("accStop: We cannot find the vehicle for imei:" + data.imei);
@@ -11,6 +13,7 @@ export const accStop = (data) => {
     throw new Error("accStop: We cannot find current journey id of vehicle with imei:" + data.imei);
   }
 
+  // find out current journey
   const journey = DB.Reports.getJourney(vehicle.currentJourneyId);
   if (!journey) {
     throw new Error("accStop: We cannot find journey with _id:" + vehicle.currentJourneyId);
@@ -27,7 +30,12 @@ export const accStop = (data) => {
     stoppedAddress: "Adres"
   };
 
+  // Journey is completed
   DB.Reports.updateJourney(journey._id, journeyData);
 
+  // Remove tracks
+  DB.Tracks.deleteByImei(data.imei);
+
+  // Remove current journey info from the vehicle
   DB.Vehicles.setCurrentJourney(vehicle._id, "");
 };

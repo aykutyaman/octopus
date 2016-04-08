@@ -71,6 +71,9 @@ export const DB = {
         },
         createdAt: time
       });
+    },
+    deleteByImei(imei) {
+      Tracks.remove({imei: imei});
     }
   }
 };
