@@ -15,4 +15,9 @@ export default function() {
       sort: {createdAt: -1}
     });
   });
+
+  Meteor.publish('vehicles.single', function(vehicleId) {
+    check(vehicleId, String);
+    return Vehicles.find({_id: vehicleId});
+  });
 }

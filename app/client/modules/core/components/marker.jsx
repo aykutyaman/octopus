@@ -3,19 +3,18 @@ import React from 'react';
 const Marker = React.createClass({
   getInitialState: function() {
     return {
-      marker: ""
+      marker: ''
     };
   },
 
   componentDidMount: function() {
     const tooltip = new google.maps.InfoWindow();
-    const markerImage = new google.maps.MarkerImage(
-      "https://s3-eu-west-1.amazonaws.com/kuresel-upload/marker-octopus.png",
-      null, /* size is determined at runtime */
-      null, /* origin is 0,0 */
-      null, /* anchor is bottom center of the scaled image */
-      new google.maps.Size(62, 88)
-    );
+    const markerImage = {
+      url: 'https://s3-eu-west-1.amazonaws.com/kuresel-upload/marker-octopus.png', // url
+      scaledSize: new google.maps.Size(62, 86), // scaled size
+    };
+
+    const geocoder = new google.maps.Geocoder();
 
     const map = GoogleMaps.maps.myMap;
     const {instance} = map;
@@ -27,11 +26,13 @@ const Marker = React.createClass({
 
     this.setState({
       map: map,
-      marker: marker
+      marker: marker,
+      tooltip: tooltip,
+      geocoder: geocoder
     });
 
-    marker.addListener('click', function() {
-      tooltip.open(map.instance, marker);
+    marker.addListener('click', () => {
+      this.openTooltip(map.instance, marker);
     });
   },
 
@@ -48,7 +49,40 @@ const Marker = React.createClass({
     if (map && marker) {
       marker.setPosition(latLng);
       this.props.handler(marker.getPosition());
-    };
+    }
+  },
+
+  getTooltipContent({plate, speed, address}) {
+    const contentString = '<div>' +
+                          '<h3> Plaka : ' + plate + '</h3>' +
+                          '<p> <strong>Hız : </strong><span class="badge">' + speed + '</span> </p>' +
+                          '<p> <strong>Adres : </strong>' + address + '</p>' +
+                          '</div>';
+    return contentString;
+  },
+
+  openTooltip(mapInstance, marker) {
+    const tooltip = this.state.tooltip;
+    const geocoder = this.state.geocoder;
+    const latLng = this.getLatLng();
+
+    geocoder.geocode({location: latLng}, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          const plate = this.props.plate;
+          // convert mph to kmh
+          const kmhSpeed = Math.floor(this.props.track.speed * 1.609344);
+          const speed = kmhSpeed;
+          const address = results[0].formatted_address;
+
+          const contentString = this.getTooltipContent({plate, speed, address});
+          tooltip.setContent(contentString);
+          tooltip.open(mapInstance, marker);
+        } else {
+          console.log('Geocode was not successful for the following reason: ${status}');
+        }
+      }
+    });
   },
 
   render: function() {

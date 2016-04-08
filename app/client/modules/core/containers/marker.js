@@ -11,10 +11,16 @@ export const composer = ({context}, onData) => {
   const vehicleId = LocalState.get('vehicle_selected');
   if (!vehicleId) return;
 
-  if (Meteor.subscribe('tracks.single', vehicleId).ready()) {
+  const vehicleSubscribe = Meteor.subscribe('vehicles.single', vehicleId);
+  const trackSubscribe = Meteor.subscribe('tracks.single', vehicleId);
+
+  if (vehicleSubscribe.ready() && trackSubscribe.ready()) {
     const track = Collections.Tracks.findOne();
-    if (track) {
-      onData(null, {track});
+    const vehicle = Collections.Vehicles.findOne();
+
+    if (track && vehicle) {
+      const plate = vehicle.plate;
+      onData(null, {track, plate});
     } else {
       console.log('Arac bilgisi bulunamadi');
     }
