@@ -61,9 +61,10 @@ export const DB = {
     }
   },
   Tracks: {
-    create({imei, latitude, longitude, time}) {
+    create({imei, latitude, longitude, time, speed}) {
       return Tracks.insert({
         imei: imei,
+        speed: speed,
         location: {
           coordinates: [latitude, longitude],
 	  type: 'Point'
