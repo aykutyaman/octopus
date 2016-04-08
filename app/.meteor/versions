@@ -53,6 +53,7 @@ mdg:validated-method@0.2.3
 mdg:validation-error@0.5.1
 meteor@1.1.12
 meteor-base@1.0.2
+meteorhacks:picker@1.0.3
 minifier-js@1.1.9
 minimongo@1.0.12
 mobile-experience@1.0.2
