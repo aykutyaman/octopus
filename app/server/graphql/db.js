@@ -1,5 +1,5 @@
 import {
-  JourneyReports,
+  Journeys,
   Vehicles,
   Tracks
 } from '/lib/collections';
@@ -8,14 +8,14 @@ import {
 export const DB = {
   Reports: {
     getJourneys: function({plates, limit, from, to}) {
-      return JourneyReports.find({
+      return Journeys.find({
 	plate: {$in: plates},
 	startedAt: {$gte: new Date(from)},
 	stoppedAt: {$lte: new Date(to)}
       }, {limit: limit}).fetch();
     },
     createJourney: function({plate, imei, startedAddress}) {
-      return JourneyReports.insert({
+      return Journeys.insert({
         plate: plate,
         imei: imei,
         startedAt: new Date(),
@@ -27,14 +27,15 @@ export const DB = {
         averageVelocity: 0,
         maximumVelocity: 0,
         startedAddress: startedAddress,
-        stoppedAddress: 'adres'
+        stoppedAddress: 'adres',
+        gpx: ''
       });
     },
     getJourney(journeyId) {
-      return JourneyReports.findOne({_id: journeyId});
+      return Journeys.findOne({_id: journeyId});
     },
     updateJourney(journeyId, data) {
-      return JourneyReports.update({_id: journeyId}, {
+      return Journeys.update({_id: journeyId}, {
         $set: {
           stoppedAt: data.stoppedAt,
           workedTime: data.workedTime,
