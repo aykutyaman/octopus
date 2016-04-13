@@ -68,36 +68,95 @@ const Journey = new GraphQLObjectType({
   })
 });
 
-let schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'reportSchemas',
-    description: 'Root of schema',
-    fields: () => ({
-      journeyReports: {
-        type: new GraphQLList(Journey),
-        args: {
-          limit: {
-            type: GraphQLInt,
-            defaultValue: 5
-          },
-          from: {
-            type: CustomGraphQLDateType,
-            description: "Sorgu başlangıç tarihi"
-          },
-          to: {
-            type: CustomGraphQLDateType,
-            description: "Sorgu bitiş tarihi"
-          },
-          plates: {
-            type: new GraphQLList(GraphQLString)
-          }
-        },
-        resolve: function(source, {plates, limit, from, to}, root, ast) {
-          return DB.Reports.getJourneys({plates, limit, from, to});
-        }
-      }
-    })
+
+const Company = new GraphQLObjectType({
+  name: 'Company',
+  description: 'This represent a company',
+  fields: () => ({
+    _id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Şirket id'
+    },
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Şirket ismi'
+    }
   })
+});
+
+const Vehicle = new GraphQLObjectType({
+  name: 'Vehicle',
+  description: 'This represent a vehicle',
+  fields: () => ({
+    company: {
+      type: Company,
+      description: 'Aracın şirketi'
+    },
+    plate: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Aracın plakası'
+    },
+    imei: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Araç IMEI'
+    }
+  })
+});
+
+const Query = new GraphQLObjectType({
+  name: 'reportSchemas',
+  description: 'Root of schema',
+  fields: () => ({
+    journeyReports: {
+      type: new GraphQLList(Journey),
+      args: {
+        limit: {
+          type: GraphQLInt,
+          defaultValue: 5
+        },
+        from: {
+          type: CustomGraphQLDateType,
+          description: "Sorgu başlangıç tarihi"
+        },
+        to: {
+          type: CustomGraphQLDateType,
+          description: "Sorgu bitiş tarihi"
+        },
+        plates: {
+          type: new GraphQLList(GraphQLString)
+        }
+      },
+      resolve: function(source, {plates, limit, from, to}, root, ast) {
+        return DB.Reports.getJourneys({plates, limit, from, to});
+      }
+    }
+  })
+});
+
+const Mutation = new GraphQLObjectType({
+  name: 'VehicleMutations',
+  description: 'Mutations of vehicles',
+  fields: {
+    newVehicle: {
+      type: Vehicle,
+      args: {
+        companyId: {type: new GraphQLNonNull(GraphQLString)},
+        plate: {type: new GraphQLNonNull(GraphQLString)},
+        imei: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (root, args) => {
+        const findAsync = async () => DB.Vehicles.create(args);
+        return findAsync(args).then(result => {
+          return result;
+        });
+      }
+    }
+  }
+});
+
+let schema = new GraphQLSchema({
+  query: Query,
+  mutation: Mutation
 });
 
 export default schema;
