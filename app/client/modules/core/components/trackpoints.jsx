@@ -10,7 +10,7 @@ const TrackPoints = React.createClass({
     var points = [];
     var bounds = new google.maps.LatLngBounds ();
     // XXX: jquery ile stringi parse etmek pek hos degil
-    $(this.props.gpx).find("trkpt").each(function() {
+    $(this.props.gpx).find("rtept").each(function() {
       var lat = $(this).attr("lat");
       var lon = $(this).attr("lon");
       var p = new google.maps.LatLng(lat, lon);

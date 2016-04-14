@@ -41,3 +41,5 @@ mdg:validated-method
 aldeed:simple-schema
 accounts-base
 meteorhacks:picker
+promise
+percolate:synced-cron

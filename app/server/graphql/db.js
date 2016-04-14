@@ -44,7 +44,8 @@ export const DB = {
           idleTime: data.idleTime,
           averageVelocity: data.averageVelocity,
           maximumVelocity: data.maximumVelocity,
-          stoppedAddress: data.stoppedAddress
+          stoppedAddress: data.stoppedAddress,
+          gpx: data.gpx
         }
       });
     }
@@ -73,8 +74,29 @@ export const DB = {
         createdAt: time
       });
     },
+    /**
+     * Verili tarihten daha eski olan tum tracklari sil
+     */
+    deleteByDate(date) {
+      Tracks.remove({createdAt: {$lte: date}});
+    },
     deleteByImei(imei) {
       Tracks.remove({imei: imei});
+    },
+    getByImei(imei) {
+      return Tracks.find({imei: imei}).fetch();
+    },
+    getCoordinatesByImei(imei) {
+      const tracks = DB.Tracks.getByImei(imei);
+      // XXX: refactor
+      const coordinates = [];
+      tracks.forEach(track => {
+        coordinates.push({
+          latitude: track.location.coordinates[0],
+          longitude: track.location.coordinates[1]
+        });
+      });
+      return coordinates;
     }
   }
 };

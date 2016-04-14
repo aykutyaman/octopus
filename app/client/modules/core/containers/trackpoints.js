@@ -9,7 +9,6 @@ import {GoogleMaps} from 'meteor/dburles:google-maps';
  */
 export const composer = ({context, gpxFile}, onData) => {
   const {Meteor, Collections} = context();
-
   // load gps data through ajax
   loadGPXFile(gpxFile, (gpx) => {
     onData(null, {gpx});
@@ -23,10 +22,13 @@ export default composeAll(
 
 const loadGPXFile = (gpxFile, callback) => {
   $.ajax({
-    url: gpxFile,
+    url: "http://" + gpxFile,
     dataType: "xml",
     success: function(xml) {
       callback(xml);
+    },
+    error: function(xhr, options, error) {
+      console.log(error);
     }
   });
 };
