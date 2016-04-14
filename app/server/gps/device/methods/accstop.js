@@ -1,4 +1,5 @@
 import { DB } from '/server/graphql/db';
+import { buildJourneyGPX } from '../../build_journey_gpx';
 
 export const accStop = (data) => {
   console.log('ACCStop received');
@@ -19,6 +20,11 @@ export const accStop = (data) => {
     throw new Error("accStop: We cannot find journey with _id:" + vehicle.currentJourneyId);
   }
 
+  const gpx = buildJourneyGPX(vehicle.currentJourneyId, data.imei);
+
+  // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
+  DB.Tracks.deleteByImei(data.imei);
+
   const journeyData = {
     stoppedAt: new Date(),
     workedTime: 0,
@@ -27,15 +33,16 @@ export const accStop = (data) => {
     idleTime: 0,
     averageVelocity: 0,
     maximumVelocity: 0,
-    stoppedAddress: "Adres"
+    stoppedAddress: "Adres",
+    gpx: gpx
   };
 
   // Journey is completed
   DB.Reports.updateJourney(journey._id, journeyData);
 
-  // Remove tracks
-  DB.Tracks.deleteByImei(data.imei);
-
   // Remove current journey info from the vehicle
   DB.Vehicles.setCurrentJourney(vehicle._id, "");
+
+  // aracin son konumunu haritada gostermek icin:
+  DB.Tracks.create(data);
 };

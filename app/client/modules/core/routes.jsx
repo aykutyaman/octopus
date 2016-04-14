@@ -3,17 +3,24 @@ import {mount} from 'react-mounter';
 
 import {AdminLayout} from '/client/configs/theme.jsx';
 import {MapLayout} from '/client/configs/theme.jsx';
+import {JourneyMapLayout} from '/client/configs/theme.jsx';
 
 import CompanyList from './containers/companylist';
 import NewCompany from './containers/newcompany';
 import Company from './containers/company';
 import NewVehicle from './containers/newvehicle';
 import Map from './containers/map';
+import JourneyMap from './containers/journeymap';
 
 
 export default function(injectDeps, {FlowRouter}) {
   const AdminLayoutCtx = injectDeps(AdminLayout);
+
+  // XXX: Bu iki layout varligi tartismali. Ikincisinde sidebar olmamasi
+  // gerektigi icin ayri bir layout eklendi. Muhtemelen ilkinden de sidebar
+  // cikarilacak.
   const MapLayoutCtx = injectDeps(MapLayout);
+  const JourneyMapLayoutCtx = injectDeps(JourneyMapLayout);
 
   const isAdmin = (context, redirect) => {
     if (!Roles.userIsInRole(Meteor.user(), 'root')) {
@@ -74,8 +81,18 @@ export default function(injectDeps, {FlowRouter}) {
     name: 'map',
     action({companyId}) {
       mount(MapLayoutCtx, {
-	content: () => (<Map companyId={companyId}/>),
+	content: () => (<Map companyId={companyId} />),
 	companyId: companyId
+      });
+    },
+    triggersEnter: [isAdmin]
+  });
+
+  FlowRouter.route('/journey/map/:journeyId', {
+    name: 'journeyMap',
+    action({journeyId}) {
+      mount(JourneyMapLayoutCtx, {
+	content: () => (<JourneyMap journeyId={journeyId} />)
       });
     },
     triggersEnter: [isAdmin]

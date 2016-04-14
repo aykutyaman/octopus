@@ -64,6 +64,10 @@ const Journey = new GraphQLObjectType({
     stoppedAddress: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Aracın hareket bitiş adresi"
+    },
+    gpx: {
+      type: GraphQLString,
+      description: "Seyahat dosyası"
     }
   })
 });

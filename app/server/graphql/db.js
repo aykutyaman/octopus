@@ -1,5 +1,5 @@
 import {
-  JourneyReports,
+  Journeys,
   Vehicles,
   Tracks
 } from '/lib/collections';
@@ -8,14 +8,14 @@ import {
 export const DB = {
   Reports: {
     getJourneys: function({plates, limit, from, to}) {
-      return JourneyReports.find({
+      return Journeys.find({
 	plate: {$in: plates},
 	startedAt: {$gte: new Date(from)},
 	stoppedAt: {$lte: new Date(to)}
       }, {limit: limit}).fetch();
     },
     createJourney: function({plate, imei, startedAddress}) {
-      return JourneyReports.insert({
+      return Journeys.insert({
         plate: plate,
         imei: imei,
         startedAt: new Date(),
@@ -27,14 +27,15 @@ export const DB = {
         averageVelocity: 0,
         maximumVelocity: 0,
         startedAddress: startedAddress,
-        stoppedAddress: 'adres'
+        stoppedAddress: 'adres',
+        gpx: ''
       });
     },
     getJourney(journeyId) {
-      return JourneyReports.findOne({_id: journeyId});
+      return Journeys.findOne({_id: journeyId});
     },
     updateJourney(journeyId, data) {
-      return JourneyReports.update({_id: journeyId}, {
+      return Journeys.update({_id: journeyId}, {
         $set: {
           stoppedAt: data.stoppedAt,
           workedTime: data.workedTime,
@@ -43,7 +44,8 @@ export const DB = {
           idleTime: data.idleTime,
           averageVelocity: data.averageVelocity,
           maximumVelocity: data.maximumVelocity,
-          stoppedAddress: data.stoppedAddress
+          stoppedAddress: data.stoppedAddress,
+          gpx: data.gpx
         }
       });
     }
@@ -72,8 +74,29 @@ export const DB = {
         createdAt: time
       });
     },
+    /**
+     * Verili tarihten daha eski olan tum tracklari sil
+     */
+    deleteByDate(date) {
+      Tracks.remove({createdAt: {$lte: date}});
+    },
     deleteByImei(imei) {
       Tracks.remove({imei: imei});
+    },
+    getByImei(imei) {
+      return Tracks.find({imei: imei}).fetch();
+    },
+    getCoordinatesByImei(imei) {
+      const tracks = DB.Tracks.getByImei(imei);
+      // XXX: refactor
+      const coordinates = [];
+      tracks.forEach(track => {
+        coordinates.push({
+          latitude: track.location.coordinates[0],
+          longitude: track.location.coordinates[1]
+        });
+      });
+      return coordinates;
     }
   }
 };
