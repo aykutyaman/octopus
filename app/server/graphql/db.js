@@ -1,9 +1,9 @@
 import {
   Journeys,
   Vehicles,
-  Tracks
+  Tracks,
+  Companies
 } from '/lib/collections';
-
 
 export const DB = {
   Reports: {
@@ -60,6 +60,18 @@ export const DB = {
           currentJourneyId: journeyId
         }
       });
+    },
+    create({companyId, plate, imei}) {
+      const createdAt = new Date();
+      const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
+
+      if (!company) {
+        throw new Error('Şirket bilgisi bulunamadı.');
+      }
+
+      const vehicle = {plate, imei, createdAt, company};
+      Vehicles.insert(vehicle);
+      return vehicle;
     }
   },
   Tracks: {
