@@ -7,10 +7,13 @@ export const accStart = (data) => {
     throw new Error("We cannot find the vehicle for imei:" + data.imei);
   }
 
+  const latlng = data.latitude + ',' + data.longitude;
+  const address = Meteor.call('getFormattedAddress', latlng);
+
   const journey = {
     plate: vehicle.plate,
     imei: data.imei,
-    startedAddress: "Find Out Started Address"
+    startedAddress: address
   };
 
   const journeyId = DB.Reports.createJourney(journey);

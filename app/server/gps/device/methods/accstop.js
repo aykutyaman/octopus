@@ -25,6 +25,9 @@ export const accStop = (data) => {
   // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
   DB.Tracks.deleteByImei(data.imei);
 
+  const latlng = data.latitude + ',' + data.longitude;
+  const address = Meteor.call('getFormattedAddress', latlng);
+
   const journeyData = {
     stoppedAt: new Date(),
     workedTime: 0,
@@ -33,7 +36,7 @@ export const accStop = (data) => {
     idleTime: 0,
     averageVelocity: 0,
     maximumVelocity: 0,
-    stoppedAddress: "Adres",
+    stoppedAddress: address,
     gpx: gpx
   };
 
