@@ -66,7 +66,7 @@ export const DB = {
       const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
 
       if (!company) {
-        throw new Error('Şirket bilgisi bulunamadı.');
+        throw new Meteor.Error(602, 'Şirket bilgisi bulunamadı.');
       }
 
       const vehicle = {plate, imei, createdAt, company};
