@@ -17,6 +17,10 @@ const Journey = new GraphQLObjectType({
   name: "Report",
   description: "This represent a report",
   fields: () => ({
+    _id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "journey id"
+    },
     plate: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Aracın plakası"
