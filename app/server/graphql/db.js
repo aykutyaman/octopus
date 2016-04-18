@@ -70,8 +70,11 @@ export const DB = {
       }
 
       const vehicle = {plate, imei, createdAt, company};
-      Vehicles.insert(vehicle);
-      return vehicle;
+      const id = Vehicles.insert(vehicle);
+      return Vehicles.findOne(id);
+    },
+    delete(vehicleId) {
+      return Vehicles.remove({_id: vehicleId});
     }
   },
   Tracks: {

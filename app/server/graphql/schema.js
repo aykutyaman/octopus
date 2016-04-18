@@ -96,9 +96,9 @@ const Vehicle = new GraphQLObjectType({
   name: 'Vehicle',
   description: 'This represent a vehicle',
   fields: () => ({
-    company: {
-      type: Company,
-      description: 'Aracın şirketi'
+    _id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Aracın idsi'
     },
     plate: {
       type: new GraphQLNonNull(GraphQLString),
@@ -107,6 +107,10 @@ const Vehicle = new GraphQLObjectType({
     imei: {
       type: new GraphQLNonNull(GraphQLString),
       description: 'Araç IMEI'
+    },
+    company: {
+      type: Company,
+      description: 'Aracın şirketi'
     }
   })
 });
@@ -153,10 +157,18 @@ const Mutation = new GraphQLObjectType({
         imei: {type: new GraphQLNonNull(GraphQLString)}
       },
       resolve: (root, args) => {
-        const findAsync = async () => DB.Vehicles.create(args);
-        return findAsync(args).then(result => {
-          return result;
-        });
+        const asyncCreateVehicle = async () => DB.Vehicles.create(args);
+        return asyncCreateVehicle();
+      }
+    },
+    deleteVehicle: {
+      type: new GraphQLNonNull(GraphQLString),
+      args: {
+        vehicleId: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (root, {vehicleId}) => {
+        const asyncDeleteVehicle = async () => DB.Vehicles.delete(vehicleId);
+        return asyncDeleteVehicle();
       }
     }
   }
