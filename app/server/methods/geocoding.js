@@ -4,8 +4,12 @@ import { check } from 'meteor/check';
 import Future from 'fibers/future';
 
 Meteor.methods({
-  getFormattedAddress(latlng) {
-    check(latlng, String);
+  getFormattedAddress(lat, lng) {
+    check(lat, Number);
+    check(lng, Number);
+
+    const latlng = lat + ',' + lng;
+
     try {
       const future = new Future();
 

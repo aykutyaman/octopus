@@ -1,4 +1,5 @@
 import { DB } from '/server/graphql/db';
+import { getAddressWithLatlng } from '../../journey_helpers';
 
 export const accStart = (data) => {
 
@@ -7,13 +8,10 @@ export const accStart = (data) => {
     throw new Error("We cannot find the vehicle for imei:" + data.imei);
   }
 
-  const latlng = data.latitude + ',' + data.longitude;
-  const address = Meteor.call('getFormattedAddress', latlng);
-
   const journey = {
     plate: vehicle.plate,
     imei: data.imei,
-    startedAddress: address
+    startedAddress: getAddressWithLatlng(data.latitude, data.longitude)
   };
 
   const journeyId = DB.Reports.createJourney(journey);
