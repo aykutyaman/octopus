@@ -30,9 +30,6 @@ export const accStop = (data) => {
 
   const gpx = buildJourneyGPX(vehicle.currentJourneyId, data.imei);
 
-  // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
-  DB.Tracks.deleteByImei(data.imei);
-
   const workedTime = getWorkedTime(journey.startedAt);
   const idleTime = getIdleTime(data.imei);
 
@@ -40,13 +37,16 @@ export const accStop = (data) => {
     stoppedAt: new Date(),
     workedTime: workedTime,
     movedTime: getMovedTime(workedTime, idleTime),
-    movedDistance: getMovedDistance(),
+    movedDistance: getMovedDistance(data.imei),
     idleTime: idleTime,
     averageVelocity: 0,
     maximumVelocity: 0,
     stoppedAddress: getAddressWithLatlng(data.latitude, data.longitude),
     gpx: gpx
   };
+
+  // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
+  DB.Tracks.deleteByImei(data.imei);
 
   // Journey is completed
   DB.Reports.updateJourney(journey._id, journeyData);
