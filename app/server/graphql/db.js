@@ -115,6 +115,9 @@ export const DB = {
     },
     getIdleCountByImei(imei) {
       return Tracks.find({ imei: imei, speed: 0 }).count();
+    },
+    getVelocitiesByImei(imei) {
+      return Tracks.find({ imei: imei }, {_id: 0, speed: 1}).fetch();
     }
   }
 };

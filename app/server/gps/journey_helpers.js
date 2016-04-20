@@ -28,3 +28,17 @@ export const getMovedDistance = (imei) => {
   const coordinates = DB.Tracks.getCoordinatesByImei(imei);
   return calcDistanceWithLocations(coordinates);
 };
+
+export const getMaxVelocity = (imei) => {
+  const velocities = DB.Tracks.getVelocitiesByImei(imei);
+  const velocitiesArray = _.pluck(velocities, 'speed');
+
+  return velocitiesArray.length ? _.max(velocitiesArray) : 0;
+};
+
+export const getAverageVelocity = (movedDistanceAsKm, movedTimeAsSeconds) => {
+  const movedTimeAsHours = movedTimeAsSeconds / 3600;
+  const averageVelocity = movedDistanceAsKm / movedTimeAsHours;
+
+  return _.isNumber(averageVelocity) ? Math.floor(averageVelocity) : 0;
+};

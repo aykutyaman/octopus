@@ -43,5 +43,6 @@ export const calcDistanceWithLocations = ( coordinates ) => {
     totalDistance += distance;
   }
 
-  return totalDistance;
+  const decimalRounded = Math.round(totalDistance * 100) / 100;
+  return decimalRounded;
 };
