@@ -3,7 +3,11 @@ import { calcDistanceWithLocations } from '/server/gps/distances';
 import { DB } from '/server/graphql/db';
 
 export const getAddressWithLatlng = (lat, lng) => {
-  return Meteor.call('getFormattedAddress', lat, lng);
+  try {
+    return Meteor.call('getFormattedAddress', lat, lng);
+  } catch (e) {
+    console.log('Adres bilgisi alınırken hata oluştu.');
+  }
 };
 
 export const getWorkedTime = (startedAt) => {
