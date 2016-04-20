@@ -112,6 +112,9 @@ export const DB = {
         });
       });
       return coordinates;
+    },
+    getIdleCountByImei(imei) {
+      return Tracks.find({ imei: imei, speed: 0 }).count();
     }
   }
 };
