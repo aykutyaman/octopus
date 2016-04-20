@@ -1,4 +1,5 @@
 import { DB } from '/server/graphql/db';
+import { getAddressWithLatlng } from '../../journey_helpers';
 
 export const accStart = (data) => {
 
@@ -10,7 +11,7 @@ export const accStart = (data) => {
   const journey = {
     plate: vehicle.plate,
     imei: data.imei,
-    startedAddress: "Find Out Started Address"
+    startedAddress: getAddressWithLatlng(data.latitude, data.longitude)
   };
 
   const journeyId = DB.Reports.createJourney(journey);

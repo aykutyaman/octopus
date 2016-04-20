@@ -1,6 +1,14 @@
 import { DB } from '/server/graphql/db';
 import { buildJourneyGPX } from '../../build_journey_gpx';
 
+import {
+  getAddressWithLatlng,
+  getWorkedTime,
+  getIdleTime,
+  getMovedTime,
+  getMovedDistance
+} from '../../journey_helpers';
+
 export const accStop = (data) => {
   console.log('ACCStop received');
 
@@ -25,15 +33,18 @@ export const accStop = (data) => {
   // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
   DB.Tracks.deleteByImei(data.imei);
 
+  const workedTime = getWorkedTime(journey.startedAt);
+  const idleTime = getIdleTime(data.imei);
+
   const journeyData = {
     stoppedAt: new Date(),
-    workedTime: 0,
-    movedTime: 0,
-    movedDistance: 0,
-    idleTime: 0,
+    workedTime: workedTime,
+    movedTime: getMovedTime(workedTime, idleTime),
+    movedDistance: getMovedDistance(),
+    idleTime: idleTime,
     averageVelocity: 0,
     maximumVelocity: 0,
-    stoppedAddress: "Adres",
+    stoppedAddress: getAddressWithLatlng(data.latitude, data.longitude),
     gpx: gpx
   };
 
