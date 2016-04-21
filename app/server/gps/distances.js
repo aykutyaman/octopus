@@ -45,3 +45,8 @@ export const calcDistanceWithLocations = ( coordinates ) => {
 
   return totalDistance;
 };
+
+export const convertMphToKmh = (mph) => {
+  const kmh = mph * 1.609344;
+  return Math.round(kmh);
+}

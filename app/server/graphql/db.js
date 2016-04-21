@@ -5,6 +5,8 @@ import {
   Companies
 } from '/lib/collections';
 
+import { convertMphToKmh } from '/server/gps/distances';
+
 export const DB = {
   Reports: {
     getJourneys: function({plates, limit, from, to}) {
@@ -79,9 +81,10 @@ export const DB = {
   },
   Tracks: {
     create({imei, latitude, longitude, time, speed}) {
+      const kmh = convertMphToKmh(speed);
       return Tracks.insert({
         imei: imei,
-        speed: speed,
+        speed: kmh,
         location: {
           coordinates: [latitude, longitude],
 	  type: 'Point'
