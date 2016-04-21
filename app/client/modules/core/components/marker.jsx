@@ -70,9 +70,7 @@ const Marker = React.createClass({
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           const plate = this.props.plate;
-          // convert mph to kmh
-          const kmhSpeed = Math.floor(this.props.track.speed * 1.609344);
-          const speed = kmhSpeed;
+          const speed = this.props.track.speed;
           const address = results[0].formatted_address;
 
           const contentString = this.getTooltipContent({plate, speed, address});
