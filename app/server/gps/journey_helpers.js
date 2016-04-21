@@ -12,7 +12,8 @@ export const getAddressWithLatlng = (lat, lng) => {
 
 export const getWorkedTime = (startedAt) => {
   const workedTime = moment.duration(moment().diff(startedAt));
-  return workedTime.asSeconds();
+  const workedTimeAsSeconds = workedTime.asSeconds();
+  return Math.round(workedTimeAsSeconds);
 };
 
 export const getIdleTime = (imei) => {
