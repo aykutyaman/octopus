@@ -120,7 +120,7 @@ export const DB = {
       return Tracks.find({ imei: imei, speed: 0 }).count();
     },
     getVelocitiesByImei(imei) {
-      return Tracks.find({ imei: imei }, {_id: 0, speed: 1}).fetch();
+      return Tracks.find({ imei: imei }, {fields: {_id: 0, speed: 1}}).fetch();
     }
   }
 };
