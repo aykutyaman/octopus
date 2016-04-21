@@ -6,7 +6,9 @@ import {
   getWorkedTime,
   getIdleTime,
   getMovedTime,
-  getMovedDistance
+  getMovedDistance,
+  getMaxVelocity,
+  getAverageVelocity
 } from '../../journey_helpers';
 
 export const accStop = (data) => {
@@ -32,15 +34,17 @@ export const accStop = (data) => {
 
   const workedTime = getWorkedTime(journey.startedAt);
   const idleTime = getIdleTime(data.imei);
+  const movedTime = getMovedTime(workedTime, idleTime);
+  const movedDistance = getMovedDistance(data.imei);
 
   const journeyData = {
     stoppedAt: new Date(),
     workedTime: workedTime,
-    movedTime: getMovedTime(workedTime, idleTime),
-    movedDistance: getMovedDistance(data.imei),
+    movedTime: movedTime,
+    movedDistance: movedDistance,
     idleTime: idleTime,
-    averageVelocity: 0,
-    maximumVelocity: 0,
+    averageVelocity: getAverageVelocity(movedDistance, movedTime),
+    maximumVelocity: getMaxVelocity(data.imei),
     stoppedAddress: getAddressWithLatlng(data.latitude, data.longitude),
     gpx: gpx
   };
