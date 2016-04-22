@@ -170,6 +170,16 @@ const Mutation = new GraphQLObjectType({
         const asyncDeleteVehicle = async () => DB.Vehicles.delete(vehicleId);
         return asyncDeleteVehicle();
       }
+    },
+    newCompany: {
+      type: Company,
+      args: {
+        name: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (root, args) => {
+        const asyncCreateCompany = async () => DB.Companies.create(args);
+        return asyncCreateCompany();
+      }
     }
   }
 });

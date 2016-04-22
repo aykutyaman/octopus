@@ -122,5 +122,24 @@ export const DB = {
     getVelocitiesByImei(imei) {
       return Tracks.find({ imei: imei }, {fields: {_id: 0, speed: 1}}).fetch();
     }
+  },
+  Companies: {
+    create({ name }) {
+      const createdAt = new Date();
+      const company = Companies.findOne({ name: name});
+
+      if (!name) {
+        throw new Meteor.Error(602, 'Lütfen bir şirket ismi girin.');
+      }
+
+      if (company) {
+        throw new Meteor.Error(602, 'Bu şirket ismi mevcut.');
+      }
+
+      const newCompany = {name, createdAt};
+      const id = Companies.insert(newCompany);
+
+      return Companies.findOne(id);
+    }
   }
 };
