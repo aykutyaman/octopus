@@ -30,7 +30,7 @@ export const accStop = (data) => {
     throw new Error("accStop: We cannot find journey with _id:" + vehicle.currentJourneyId);
   }
 
-  // const gpx = buildJourneyGPX(vehicle.currentJourneyId, data.imei);
+  const gpx = buildJourneyGPX(vehicle.currentJourneyId, data.imei);
 
   const workedTime = getWorkedTime(journey.startedAt);
   const idleTime = getIdleTime(data.imei);
@@ -46,18 +46,18 @@ export const accStop = (data) => {
     averageVelocity: getAverageVelocity(movedDistance, movedTime),
     maximumVelocity: getMaxVelocity(data.imei),
     stoppedAddress: getAddressWithLatlng(data.latitude, data.longitude),
-    gpx: ''
+    gpx: gpx
   };
-  console.log(journeyData);
-  // // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
-  // DB.Tracks.deleteByImei(data.imei);
 
-  // // Journey is completed
-  // DB.Reports.updateJourney(journey._id, journeyData);
+  // gpx dosyasi oldugu icin tracklara ihtiyacimiz kalmadi
+  DB.Tracks.deleteByImei(data.imei);
 
-  // // Remove current journey info from the vehicle
-  // DB.Vehicles.setCurrentJourney(vehicle._id, "");
+  // Journey is completed
+  DB.Reports.updateJourney(journey._id, journeyData);
 
-  // // aracin son konumunu haritada gostermek icin:
-  // DB.Tracks.create(data);
+  // Remove current journey info from the vehicle
+  DB.Vehicles.setCurrentJourney(vehicle._id, "");
+
+  // aracin son konumunu haritada gostermek icin:
+  DB.Tracks.create(data);
 };
