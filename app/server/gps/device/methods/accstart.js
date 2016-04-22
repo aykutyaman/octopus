@@ -2,6 +2,7 @@ import { DB } from '/server/graphql/db';
 import { getAddressWithLatlng } from '../../journey_helpers';
 
 export const accStart = (data) => {
+  console.log('ACCStart received');
 
   const vehicle = DB.Vehicles.getByImei(data.imei);
   if (!vehicle) {

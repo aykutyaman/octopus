@@ -10,6 +10,6 @@ export const messageMap = {
   },
   accon: accOn,
   accoff: () => {
-    console.log('ACC OFF');
+    // console.log('ACC OFF');
   }
 };

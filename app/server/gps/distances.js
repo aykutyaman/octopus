@@ -39,7 +39,16 @@ export const calcDistanceWithLocations = ( coordinates ) => {
     const latlng1 = coordinates[ i ];
     const latlng2 = coordinates[ i + 1 ];
 
-    const distance = getDistanceBetweenTwoLatlngPoints(latlng1, latlng2, 'K');
+    let distance = getDistanceBetweenTwoLatlngPoints(latlng1, latlng2, 'K');
+
+    if (typeof distance !== 'number') {
+      console.log("==================HATA==================");
+      console.log("Mesafe", distance);
+      console.log("========================================");
+
+      distance = 0;
+    }
+
     totalDistance += distance;
   }
 
@@ -50,4 +59,4 @@ export const calcDistanceWithLocations = ( coordinates ) => {
 export const convertMphToKmh = (mph) => {
   const kmh = mph * 1.609344;
   return Math.round(kmh);
-}
+};
