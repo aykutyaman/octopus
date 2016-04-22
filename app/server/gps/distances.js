@@ -35,6 +35,9 @@ const getDistanceBetweenTwoLatlngPoints = ( latlng1, latlng2, unit) => {
 export const calcDistanceWithLocations = ( coordinates ) => {
   let totalDistance = 0;
 
+  console.log('Mesafe hesapla işlemi başlıyor....');
+  console.log('Lokasyon sayısı: ', coordinates.length);
+
   for ( let i = 0; i < coordinates.length - 1; i++ ) {
     const latlng1 = coordinates[ i ];
     const latlng2 = coordinates[ i + 1 ];
@@ -52,7 +55,10 @@ export const calcDistanceWithLocations = ( coordinates ) => {
     totalDistance += distance;
   }
 
+  console.log('Mesafe hesapla işlemi bitti.');
+
   const decimalRounded = Math.round(totalDistance * 100) / 100;
+  console.log('Yuvarlanan değer: ', decimalRounded);
   return decimalRounded;
 };
 
