@@ -35,30 +35,18 @@ const getDistanceBetweenTwoLatlngPoints = ( latlng1, latlng2, unit) => {
 export const calcDistanceWithLocations = ( coordinates ) => {
   let totalDistance = 0;
 
-  console.log('Mesafe hesapla işlemi başlıyor....');
-  console.log('Lokasyon sayısı: ', coordinates.length);
-
   for ( let i = 0; i < coordinates.length - 1; i++ ) {
     const latlng1 = coordinates[ i ];
     const latlng2 = coordinates[ i + 1 ];
 
-    let distance = getDistanceBetweenTwoLatlngPoints(latlng1, latlng2, 'K');
+    const distance = getDistanceBetweenTwoLatlngPoints(latlng1, latlng2, 'K');
 
-    if (typeof distance !== 'number') {
-      console.log("==================HATA==================");
-      console.log("Mesafe", distance);
-      console.log("========================================");
-
-      distance = 0;
+    if ( !isNaN(distance) && _.isNumber(distance) ) {
+      totalDistance += distance;
     }
-
-    totalDistance += distance;
   }
 
-  console.log('Mesafe hesapla işlemi bitti.');
-
   const decimalRounded = Math.round(totalDistance * 100) / 100;
-  console.log('Yuvarlanan değer: ', decimalRounded);
   return decimalRounded;
 };
 
