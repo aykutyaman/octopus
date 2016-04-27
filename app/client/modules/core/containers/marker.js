@@ -5,10 +5,9 @@ import {GoogleMaps} from 'meteor/dburles:google-maps';
 export const composer = ({context}, onData) => {
   console.log('marker composer');
 
-  const {Meteor, Collections, LocalState} = context();
+  const {Meteor, Collections, FlowRouter} = context();
+  const vehicleId = FlowRouter.getParam('vehicleId');
 
-  // listeden bir arac secilmedi
-  const vehicleId = LocalState.get('vehicle_selected');
   if (!vehicleId) return;
 
   const vehicleSubscribe = Meteor.subscribe('vehicles.single', vehicleId);

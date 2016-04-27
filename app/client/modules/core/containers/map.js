@@ -7,7 +7,7 @@ import {GoogleMaps} from 'meteor/dburles:google-maps';
  * degilim. Bu islemi burada yaparak komponenti stateless olarak
  * kullanabildik. Bunun aksine marker icin komponenti kullanidik.
  */
-export const composer = ({context, companyId}, onData) => {
+export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context();
   GoogleMaps.load();
   if (GoogleMaps.loaded()) {
