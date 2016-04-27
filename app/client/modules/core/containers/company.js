@@ -10,7 +10,12 @@ export const composer = ({context, companyId}, onData) => {
   }
 };
 
+export const depsMapper = (context, actions) => ({
+  showVehicle: actions.company.showVehicle,
+  context: () => context
+});
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(Company);
