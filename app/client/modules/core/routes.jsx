@@ -77,12 +77,11 @@ export default function(injectDeps, {FlowRouter}) {
   });
 
 
-  FlowRouter.route('/map/:companyId', {
+  FlowRouter.route('/map/:vehicleId', {
     name: 'map',
-    action({companyId}) {
+    action() {
       mount(MapLayoutCtx, {
-	content: () => (<Map companyId={companyId} />),
-	companyId: companyId
+	content: () => <Map />
       });
     },
     triggersEnter: [isAdmin]
