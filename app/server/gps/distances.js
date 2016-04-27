@@ -41,7 +41,7 @@ export const calcDistanceWithLocations = ( coordinates ) => {
 
     const distance = getDistanceBetweenTwoLatlngPoints(latlng1, latlng2, 'K');
 
-    if ( !isNaN(distance) && _.isNumber(distance) ) {
+    if ( isInteger(distance) ) {
       totalDistance += distance;
     }
   }
@@ -53,4 +53,10 @@ export const calcDistanceWithLocations = ( coordinates ) => {
 export const convertMphToKmh = (mph) => {
   const kmh = mph * 1.609344;
   return Math.round(kmh);
+};
+
+export const isInteger = (value) => {
+  return typeof value === 'number' &&
+    isFinite(value) &&
+    Math.floor(value) === value;
 };

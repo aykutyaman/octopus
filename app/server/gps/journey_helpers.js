@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { calcDistanceWithLocations } from '/server/gps/distances';
+import { calcDistanceWithLocations, isInteger } from '/server/gps/distances';
 import { DB } from '/server/graphql/db';
 
 export const getAddressWithLatlng = (lat, lng) => {
@@ -41,5 +41,5 @@ export const getAverageVelocity = (movedDistanceAsKm, movedTimeAsSeconds) => {
   const movedTimeAsHours = movedTimeAsSeconds / 3600;
   const averageVelocity = movedDistanceAsKm / movedTimeAsHours;
 
-  return _.isNumber(averageVelocity) ? Math.floor(averageVelocity) : 0;
+  return isInteger(averageVelocity) ? Math.floor(averageVelocity) : 0;
 };
