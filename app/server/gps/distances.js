@@ -57,6 +57,5 @@ export const convertMphToKmh = (mph) => {
 
 export const isInteger = (value) => {
   return typeof value === 'number' &&
-    isFinite(value) &&
-    Math.floor(value) === value;
+    isFinite(value);
 };
