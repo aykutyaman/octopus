@@ -20,6 +20,9 @@ export default function() {
 
     // PING -> When the gps sends their position
     device.on('ping', (data) => {
+      // device_id
+      console.log(`Device uid: ${device.uid}`);
+
       fibers(() => {
         try {
           messageBus({messageMap, data, formatMessage});
