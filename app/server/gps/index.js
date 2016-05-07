@@ -37,7 +37,7 @@ export default function() {
 
   vehicleDeviceHub.on('command', (deviceId, cmd) => {
     try {
-      gpsServer.send_cmd(deviceId, cmd);
+      gpsServer.send_to(deviceId, cmd);
     } catch(e) {
       console.log(e);
     }
