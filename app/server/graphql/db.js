@@ -72,12 +72,20 @@ export const DB = {
         throw new Meteor.Error(602, 'Şirket bilgisi bulunamadı.');
       }
 
-      const vehicle = {plate, imei, createdAt, company};
+      const vehicle = {plate, imei, createdAt, company, powerCut: false};
       const id = Vehicles.insert(vehicle);
       return Vehicles.findOne(id);
     },
     delete(vehicleId) {
       return Vehicles.remove({_id: vehicleId});
+    },
+    getVehicles({ limit, page }) {
+      const skipNumber = limit * ( page - 1 );
+      return Vehicles.find({}, {
+        skip: skipNumber,
+        limit: limit,
+        sort: { createdAt: -1 }
+      }).fetch();
     },
     updatePowerCutStatus(vehicleId, status) {
       Vehicles.update({_id: vehicleId}, {

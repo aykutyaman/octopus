@@ -115,7 +115,7 @@ const Vehicle = new GraphQLObjectType({
     },
     powerCut: {
       type: GraphQLBoolean,
-      descripton: 'Araç kontak elektriğinin durumu'
+      description: 'Kontak açma kapama'
     }
   })
 });
@@ -145,6 +145,22 @@ const Query = new GraphQLObjectType({
       },
       resolve: function(source, {plates, limit, from, to}, root, ast) {
         return DB.Reports.getJourneys({plates, limit, from, to});
+      }
+    },
+    vehicles: {
+      type: new GraphQLList(Vehicle),
+      args: {
+        limit: {
+          type: GraphQLInt,
+          defaultValue: 10
+        },
+        page: {
+          type: GraphQLInt,
+          defaultValue: 1
+        }
+      },
+      resolve: function(source, { limit, page }, root, ast) {
+        return DB.Vehicles.getVehicles({ limit, page });
       }
     }
   })
