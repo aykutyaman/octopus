@@ -6,6 +6,7 @@ import {
 } from '/lib/collections';
 
 import { convertMphToKmh } from '/server/gps/distances';
+import { powerCutCommand } from '../gps/device/sendCommandToDevice';
 
 export const DB = {
   Reports: {
@@ -85,6 +86,24 @@ export const DB = {
         limit: limit,
         sort: { createdAt: -1 }
       }).fetch();
+    },
+    updatePowerCutStatus(vehicleId, status) {
+      Vehicles.update({_id: vehicleId}, {
+        $set: {
+          powerCut: status
+        }
+      });
+    },
+    powerCut({ imei }) {
+      const vehicle = Vehicles.findOne({imei: imei});
+
+      if (!vehicle) {
+        throw new Error("Bu imei için bir araç bulunamadı: " + imei);
+      }
+
+      const powerCut = vehicle.powerCut || false;
+      powerCutCommand(vehicle.imei, powerCut);
+      return !powerCut;
     }
   },
   Tracks: {

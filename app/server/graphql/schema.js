@@ -201,6 +201,16 @@ const Mutation = new GraphQLObjectType({
         const asyncCreateCompany = async () => DB.Companies.create(args);
         return asyncCreateCompany();
       }
+    },
+    powerCut: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      args: {
+        imei: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (root, args) => {
+        const asyncVehiclePowercut = async () => DB.Vehicles.powerCut(args);
+        return asyncVehiclePowercut();
+      }
     }
   }
 });

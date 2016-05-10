@@ -1,6 +1,7 @@
 import { accStart } from './methods/accstart';
 import { accStop } from './methods/accstop';
 import { accOn } from './methods/accon';
+import { powercut } from './methods/powercut';
 
 export const messageMap = {
   accstart: accStart,
@@ -11,5 +12,6 @@ export const messageMap = {
   accon: accOn,
   accoff: () => {
     // console.log('ACC OFF');
-  }
+  },
+  powercar: powercut
 };
