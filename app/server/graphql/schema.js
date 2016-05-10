@@ -6,7 +6,8 @@ import {
   GraphQLSchema,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLString
+  GraphQLString,
+  GraphQLBoolean
 } from 'graphql';
 
 import CustomGraphQLDateType from 'graphql-custom-datetype';
@@ -111,6 +112,10 @@ const Vehicle = new GraphQLObjectType({
     company: {
       type: Company,
       description: 'Aracın şirketi'
+    },
+    powerCut: {
+      type: GraphQLBoolean,
+      description: 'Kontak açma kapama'
     }
   })
 });
@@ -140,6 +145,22 @@ const Query = new GraphQLObjectType({
       },
       resolve: function(source, {plates, limit, from, to}, root, ast) {
         return DB.Reports.getJourneys({plates, limit, from, to});
+      }
+    },
+    vehicles: {
+      type: new GraphQLList(Vehicle),
+      args: {
+        limit: {
+          type: GraphQLInt,
+          defaultValue: 10
+        },
+        page: {
+          type: GraphQLInt,
+          defaultValue: 1
+        }
+      },
+      resolve: function(source, { limit, page }, root, ast) {
+        return DB.Vehicles.getVehicles({ limit, page });
       }
     }
   })
