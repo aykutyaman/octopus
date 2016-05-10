@@ -131,6 +131,10 @@ const Query = new GraphQLObjectType({
           type: GraphQLInt,
           defaultValue: 5
         },
+        page: {
+          type: GraphQLInt,
+          defaultValue: 1
+        },
         from: {
           type: CustomGraphQLDateType,
           description: "Sorgu başlangıç tarihi"
@@ -143,8 +147,8 @@ const Query = new GraphQLObjectType({
           type: new GraphQLList(GraphQLString)
         }
       },
-      resolve: function(source, {plates, limit, from, to}, root, ast) {
-        return DB.Reports.getJourneys({plates, limit, from, to});
+      resolve: function(source, {plates, limit, page, from, to}, root, ast) {
+        return DB.Reports.getJourneys({plates, limit, page, from, to});
       }
     },
     vehicles: {

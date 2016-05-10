@@ -10,12 +10,16 @@ import { powerCutCommand } from '../gps/device/sendCommandToDevice';
 
 export const DB = {
   Reports: {
-    getJourneys: function({plates, limit, from, to}) {
+    getJourneys: function({plates, limit, page, from, to}) {
+      const skipNumber = limit * ( page - 1 );
       return Journeys.find({
 	plate: {$in: plates},
 	startedAt: {$gte: new Date(from)},
 	stoppedAt: {$lte: new Date(to)}
-      }, {limit: limit}).fetch();
+      }, {
+        skip: skipNumber,
+        limit: limit
+      }).fetch();
     },
     createJourney: function({plate, imei, startedAddress}) {
       return Journeys.insert({
