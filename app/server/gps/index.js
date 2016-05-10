@@ -32,6 +32,15 @@ export default function() {
       return data;
     });
 
+    device.on('command_response', (data) => {
+      fibers(() => {
+        try {
+          messageBus({messageMap, data, formatMessage});
+        } catch (e) {
+          console.log(e);
+        }
+      }).run();
+    });
 
   });
 

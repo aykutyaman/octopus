@@ -6,7 +6,8 @@ import {
   GraphQLSchema,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLString
+  GraphQLString,
+  GraphQLBoolean
 } from 'graphql';
 
 import CustomGraphQLDateType from 'graphql-custom-datetype';
@@ -111,6 +112,10 @@ const Vehicle = new GraphQLObjectType({
     company: {
       type: Company,
       description: 'Aracın şirketi'
+    },
+    powerCut: {
+      type: GraphQLBoolean,
+      descripton: 'Araç kontak elektriğinin durumu'
     }
   })
 });
@@ -179,6 +184,16 @@ const Mutation = new GraphQLObjectType({
       resolve: (root, args) => {
         const asyncCreateCompany = async () => DB.Companies.create(args);
         return asyncCreateCompany();
+      }
+    },
+    powerCut: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      args: {
+        imei: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (root, args) => {
+        const asyncVehiclePowercut = async () => DB.Vehicles.powerCut(args);
+        return asyncVehiclePowercut();
       }
     }
   }
