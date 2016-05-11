@@ -108,7 +108,10 @@ export const DB = {
       const powerCut = vehicle.powerCut || false;
       powerCutCommand(vehicle.imei, powerCut);
       return !powerCut;
-    }
+    },
+    getVehicleDetails({ _id }) {
+      return Vehicles.findOne({ _id: _id });
+    },
   },
   Tracks: {
     create({imei, latitude, longitude, time, speed}) {
