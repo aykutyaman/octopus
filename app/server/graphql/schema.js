@@ -166,6 +166,17 @@ const Query = new GraphQLObjectType({
       resolve: function(source, { limit, page }, root, ast) {
         return DB.Vehicles.getVehicles({ limit, page });
       }
+    },
+    vehicleDetails: {
+      type: Vehicle,
+      args: {
+        _id: {
+          type: GraphQLString
+        }
+      },
+      resolve: function(source, { _id }, root, ast) {
+        return DB.Vehicles.getVehicleDetails({ _id });
+      }
     }
   })
 });
