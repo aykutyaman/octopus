@@ -113,10 +113,14 @@ export const DB = {
       return Vehicles.findOne({ _id: _id });
     },
     update({ vehicleId, plate, imei, companyId }) {
-      const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
+      const currentVehicle = Vehicles.findOne(vehicleId);
 
-      const currentVehicleWithImei = Vehicles.findOne({ imei: imei }, { fields: {_id: 1} });
-      const currentVehicleWithPlate = Vehicles.findOne({ plate: plate }, { fields: {_id: 1} });
+      if (!currentVehicle) {
+        throw new Meteor.Error(602, 'Araç bilgisi bulunamadı.');
+      }
+
+      const currentVehicleWithImei = Vehicles.findOne({ _id: { $ne: vehicleId }, imei: imei });
+      const currentVehicleWithPlate = Vehicles.findOne({ _id: { $ne: vehicleId }, plate: plate });
 
       if (currentVehicleWithImei) {
         throw new Meteor.Error(602, 'Aynı imei ile bir araç mevcut!');
@@ -125,6 +129,8 @@ export const DB = {
       if (currentVehicleWithPlate) {
         throw new Meteor.Error(602, 'Aynı plaka ile bir araç mevcut!');
       }
+
+      const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
 
       if (!company) {
         throw new Meteor.Error(602, 'Şirket bilgisi bulunamadı.');
