@@ -72,6 +72,17 @@ export const DB = {
       const createdAt = new Date();
       const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
 
+      const currentVehicleWithImei = Vehicles.findOne({ imei: imei }, { fields: {_id: 1} });
+      const currentVehicleWithPlate = Vehicles.findOne({ plate: plate }, { fields: {_id: 1} });
+
+      if (currentVehicleWithImei) {
+        throw new Meteor.Error(602, 'Aynı imei ile bir araç mevcut!');
+      }
+
+      if (currentVehicleWithPlate) {
+        throw new Meteor.Error(602, 'Aynı plaka ile bir araç mevcut!');
+      }
+
       if (!company) {
         throw new Meteor.Error(602, 'Şirket bilgisi bulunamadı.');
       }
