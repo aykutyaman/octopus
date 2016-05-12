@@ -220,7 +220,10 @@ const Mutation = new GraphQLObjectType({
     powerCut: {
       type: new GraphQLNonNull(GraphQLBoolean),
       args: {
-        imei: {type: new GraphQLNonNull(GraphQLString)}
+        _id: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: 'Araç id'
+        }
       },
       resolve: (root, args) => {
         const asyncVehiclePowercut = async () => DB.Vehicles.powerCut(args);

@@ -98,11 +98,11 @@ export const DB = {
         }
       });
     },
-    powerCut({ imei }) {
-      const vehicle = Vehicles.findOne({imei: imei});
+    powerCut({ _id }) {
+      const vehicle = Vehicles.findOne({_id: _id});
 
       if (!vehicle) {
-        throw new Error("Bu imei için bir araç bulunamadı: " + imei);
+        throw new Error("Bu id için bir araç bulunamadı: " + _id);
       }
 
       const powerCut = vehicle.powerCut || false;
