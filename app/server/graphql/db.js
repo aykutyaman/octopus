@@ -72,10 +72,15 @@ export const DB = {
       const createdAt = new Date();
       const company = Companies.findOne({_id: companyId}, {fields: {name: 1}});
 
-      const currentVehicle = Vehicles.findOne({ $or: [ {imei: imei}, {plate: plate} ] });
+      const currentVehicleWithImei = Vehicles.findOne({ imei: imei }, { fields: {_id: 1} });
+      const currentVehicleWithPlate = Vehicles.findOne({ plate: plate }, { fields: {_id: 1} });
 
-      if (currentVehicle) {
-        throw new Meteor.Error(602, 'Aynı imei ya da plaka ile bir araç mevcut!');
+      if (currentVehicleWithImei) {
+        throw new Meteor.Error(602, 'Aynı imei ile bir araç mevcut!');
+      }
+
+      if (currentVehicleWithPlate) {
+        throw new Meteor.Error(602, 'Aynı plaka ile bir araç mevcut!');
       }
 
       if (!company) {
