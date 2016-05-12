@@ -226,6 +226,31 @@ const Mutation = new GraphQLObjectType({
         const asyncVehiclePowercut = async () => DB.Vehicles.powerCut(args);
         return asyncVehiclePowercut();
       }
+    },
+    updateVehicle: {
+      type: Vehicle,
+      args: {
+        vehicleId: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: 'Araç id'
+        },
+        companyId: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: 'Şirket id'
+        },
+        plate: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: 'Araç plakası'
+        },
+        imei: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: 'Araç IMEI'
+        }
+      },
+      resolve: (root, args) => {
+        const asyncUpdateVehicle = async () => DB.Vehicles.update(args);
+        return asyncUpdateVehicle();
+      }
     }
   }
 });
